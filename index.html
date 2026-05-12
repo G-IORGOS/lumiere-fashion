@@ -246,7 +246,6 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);padding:5rem 0 0}
 </head>
 <body>
 
-<div class="cur-ring" id="curR"></div>
 
 <!-- Top Bar -->
 <div class="topbar">🚚 Δωρεάν αποστολή από <strong>49€</strong> · Εντός Ελλάδας</div>
@@ -472,11 +471,6 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);padding:5rem 0 0}
 <script>
 // Cursor
 const cur=document.getElementById('cur'),curR=document.getElementById('curR');
-let mx=0,my=0,fx=0,fy=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.transform=`translate(${mx-3}px,${my-3}px)`});
-(function loop(){fx+=(mx-fx)*.1;fy+=(my-fy)*.1;curR.style.transform=`translate(${fx-16}px,${fy-16}px)`;requestAnimationFrame(loop)})();
-document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>{cur.classList.add('h');curR.classList.add('h')});el.addEventListener('mouseleave',()=>{cur.classList.remove('h');curR.classList.remove('h')})});
-  {id:3,name:'Flared Παντελόνι High Waist',brand:'LUMIÈRE',cat:'pantelonia',sku:'PAN-FLR-003',price:72,oldPrice:null,emoji:'👖',sizes:['XS','S','M'],badge:null,rating:5},
   {id:4,name:'Structured Δερμάτινη Τσάντα',brand:'LUMIÈRE',cat:'aksesuar',sku:'TSA-STR-004',price:145,oldPrice:null,emoji:'👜',sizes:null,badge:'exc',rating:5},
   {id:5,name:'Maxi Floral Φόρεμα',brand:'LUMIÈRE',cat:'foremata',sku:'FOR-FLO-005',price:115,oldPrice:145,emoji:'🌸',sizes:['XS','S','M','L','XL'],badge:'sale2',rating:4},
   {id:6,name:'Ribbed Crop Top',brand:'LUMIÈRE',cat:'blouzes',sku:'BLZ-RIB-006',price:32,oldPrice:null,emoji:'👙',sizes:['XS','S','M'],badge:'new2',rating:4},
