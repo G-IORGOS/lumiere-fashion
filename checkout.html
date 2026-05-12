@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Checkout — LUMIÈRE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,300;1,6..96,300;1,6..96,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#faf8f4;--white:#fff;--ink:#111110;--ink2:#2a2a28;
+  --muted:#999890;--border:#e8e4da;--rose:#c4856a;--rose-lt:#d4a090;
+  --green:#4caf82;--serif:'Bodoni Moda',Georgia,serif;--sans:'Jost',sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);min-height:100vh}
+
+/* Nav */
+.co-nav{background:var(--white);border-bottom:1px solid var(--border);padding:1rem 2.5rem;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--serif);font-size:1.6rem;font-style:italic;color:var(--ink);text-decoration:none}
+.co-secure{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.4rem}
+
+/* Progress */
+.progress{max-width:600px;margin:2rem auto;padding:0 1.5rem;display:flex;align-items:center;gap:0}
+.step{display:flex;align-items:center;gap:.5rem;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);flex:1}
+.step-num{width:26px;height:26px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0}
+.step.active .step-num{background:var(--ink);color:#fff;border-color:var(--ink)}
+.step.done .step-num{background:var(--green);color:#fff;border-color:var(--green)}
+.step.active,.step.done{color:var(--ink)}
+.step-line{flex:1;height:1px;background:var(--border);margin:0 .5rem}
+.step-line.done{background:var(--green)}
+
+/* Layout */
+.co-layout{max-width:1100px;margin:0 auto;padding:0 1.5rem 4rem;display:grid;grid-template-columns:1fr 380px;gap:3rem;align-items:start}
+@media(max-width:800px){.co-layout{grid-template-columns:1fr}}
+
+/* Form panels */
+.co-panel{background:var(--white);border:1px solid var(--border);padding:2rem;margin-bottom:1.5rem}
+.co-panel h3{font-family:var(--serif);font-size:1.2rem;font-style:italic;margin-bottom:1.5rem;padding-bottom:.8rem;border-bottom:1px solid var(--border)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.form-row.full{grid-template-columns:1fr}
+.form-group{display:flex;flex-direction:column;gap:.3rem}
+label{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+input,select,textarea{border:1px solid var(--border);padding:.75rem 1rem;font-family:var(--sans);font-size:.9rem;color:var(--ink);background:var(--cream);outline:none;transition:border-color .2s;border-radius:0}
+input:focus,select:focus{border-color:var(--rose);background:var(--white)}
+input.error{border-color:#e74c3c}
+.field-hint{font-size:.65rem;color:var(--muted);margin-top:.2rem}
+
+/* Shipping Methods */
+.ship-opts{display:flex;flex-direction:column;gap:.8rem}
+.ship-opt{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;border:1px solid var(--border);cursor:pointer;transition:border-color .2s;position:relative}
+.ship-opt:hover,.ship-opt.sel{border-color:var(--ink)}
+.ship-opt.sel{background:var(--cream)}
+.ship-opt input[type=radio]{accent-color:var(--ink)}
+.ship-icon{font-size:1.4rem}
+.ship-info{flex:1}
+.ship-name{font-size:.88rem;font-weight:500}
+.ship-days{font-size:.72rem;color:var(--muted)}
+.ship-price{font-size:.95rem;font-weight:500;color:var(--rose)}
+.ship-free{color:var(--green)}
+
+/* Payment Methods */
+.pay-opts{display:flex;flex-direction:column;gap:.8rem}
+.pay-opt{border:1px solid var(--border);cursor:pointer;transition:border-color .2s;overflow:hidden}
+.pay-opt.sel{border-color:var(--ink)}
+.pay-opt-head{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem}
+.pay-opt input[type=radio]{accent-color:var(--ink)}
+.pay-icon{font-size:1.3rem}
+.pay-label{font-size:.88rem;font-weight:500;flex:1}
+.pay-badges{display:flex;gap:.3rem}
+.pay-badge{font-size:.6rem;background:var(--cream);border:1px solid var(--border);padding:.15rem .4rem;border-radius:2px;color:var(--muted)}
+.pay-body{padding:0 1.2rem;max-height:0;overflow:hidden;transition:max-height .3s,padding .3s}
+.pay-body.on{max-height:300px;padding:1rem 1.2rem}
+.card-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.8rem}
+.pay-note{font-size:.75rem;color:var(--muted);line-height:1.6;padding:.8rem;background:var(--cream);border:1px solid var(--border)}
+.bank-detail{font-size:.82rem;line-height:2;color:var(--ink2)}
+.bank-detail strong{color:var(--ink)}
+
+/* Order Summary */
+.co-summary{position:sticky;top:100px}
+.sum-card{background:var(--white);border:1px solid var(--border);padding:1.8rem}
+.sum-title{font-family:var(--serif);font-size:1.1rem;font-style:italic;margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:1px solid var(--border)}
+.sum-items{margin-bottom:1.2rem;display:flex;flex-direction:column;gap:.8rem;max-height:240px;overflow-y:auto}
+.sum-item{display:flex;gap:.8rem;align-items:center}
+.sum-img{width:52px;height:66px;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;position:relative}
+.sum-qty-badge{position:absolute;top:-6px;right:-6px;width:18px;height:18px;background:var(--muted);color:#fff;border-radius:50%;font-size:.6rem;display:flex;align-items:center;justify-content:center}
+.sum-item-name{font-size:.8rem;font-family:var(--serif);font-style:italic;flex:1}
+.sum-item-size{font-size:.65rem;color:var(--muted)}
+.sum-item-price{font-size:.85rem}
+.sum-row{display:flex;justify-content:space-between;font-size:.82rem;padding:.4rem 0;color:var(--muted)}
+.sum-divider{border:none;border-top:1px solid var(--border);margin:.5rem 0}
+.sum-total{display:flex;justify-content:space-between;padding:.8rem 0;font-size:1rem}
+.sum-total span:last-child{font-family:var(--serif);font-style:italic;font-size:1.2rem;color:var(--rose)}
+.coupon-row{display:flex;gap:.5rem;margin:.8rem 0}
+.coupon-input{flex:1;border:1px solid var(--border);padding:.6rem .8rem;font-family:var(--sans);font-size:.8rem;outline:none}
+.coupon-btn{background:var(--ink);color:#fff;border:none;padding:.6rem 1rem;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;font-family:var(--sans)}
+.coupon-btn:hover{background:var(--rose)}
+
+/* Submit button */
+.co-submit{width:100%;background:var(--ink);color:#fff;border:none;padding:1.1rem;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;font-family:var(--sans);transition:background .2s;margin-top:1rem;display:flex;align-items:center;justify-content:center;gap:.8rem}
+.co-submit:hover{background:var(--rose)}
+.co-submit:disabled{background:var(--muted);cursor:not-allowed}
+.co-secure-note{font-size:.65rem;color:var(--muted);text-align:center;margin-top:.6rem}
+
+/* Confirmation screen */
+.confirm-screen{display:none;text-align:center;padding:4rem 2rem;max-width:560px;margin:0 auto}
+.confirm-screen.on{display:block}
+.confirm-icon{font-size:4rem;margin-bottom:1.5rem;animation:pop .5s var(--ease)}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+.confirm-title{font-family:var(--serif);font-size:2.5rem;font-style:italic;margin-bottom:.5rem}
+.confirm-sub{color:var(--muted);margin-bottom:1.5rem;font-size:.9rem;line-height:1.7}
+.confirm-id{display:inline-block;background:var(--cream);border:1px solid var(--border);padding:.6rem 1.5rem;font-size:.85rem;letter-spacing:.1em;margin-bottom:2rem}
+.confirm-steps{text-align:left;background:var(--white);border:1px solid var(--border);padding:1.5rem;margin-bottom:2rem}
+.confirm-step{display:flex;align-items:flex-start;gap:.8rem;padding:.6rem 0;border-bottom:1px solid var(--border);font-size:.82rem}
+.confirm-step:last-child{border:none}
+.confirm-step-icon{font-size:1.1rem;flex-shrink:0;margin-top:.1rem}
+.back-home{display:inline-block;background:var(--ink);color:#fff;padding:.9rem 2rem;text-decoration:none;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;transition:background .2s}
+.back-home:hover{background:var(--rose)}
+</style>
+</head>
+<body>
+
+<nav class="co-nav">
+  <a href="index.html" class="logo">Lumière</a>
+  <div class="co-secure">🔒 Ασφαλής Ολοκλήρωση</div>
+</nav>
+
+<!-- Progress -->
+<div class="progress" id="progressBar">
+  <div class="step active" id="step1-ind"><span class="step-num">1</span><span>Στοιχεία</span></div>
+  <div class="step-line" id="line1"></div>
+  <div class="step" id="step2-ind"><span class="step-num">2</span><span>Αποστολή</span></div>
+  <div class="step-line" id="line2"></div>
+  <div class="step" id="step3-ind"><span class="step-num">3</span><span>Πληρωμή</span></div>
+  <div class="step-line" id="line3"></div>
+  <div class="step" id="step4-ind"><span class="step-num">4</span><span>Επιβεβαίωση</span></div>
+</div>
+
+<div id="checkoutMain">
+<div class="co-layout">
+  <!-- LEFT: Steps -->
+  <div>
+
+    <!-- Step 1: Customer Info -->
+    <div class="co-panel" id="panelStep1">
+      <h3>1. Στοιχεία παραγγελίας</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Όνομα *</label>
+          <input type="text" id="firstName" placeholder="Γεώργιος" required/>
+        </div>
+        <div class="form-group">
+          <label>Επώνυμο *</label>
+          <input type="text" id="lastName" placeholder="Παπαδόπουλος" required/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" id="email" placeholder="email@example.com" required/>
+        </div>
+        <div class="form-group">
+          <label>Τηλέφωνο *</label>
+          <input type="tel" id="phone" placeholder="6912345678" required/>
+        </div>
+      </div>
+      <div class="form-row full">
+        <div class="form-group">
+          <label>Διεύθυνση *</label>
+          <input type="text" id="address" placeholder="Ερμού 10" required/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Πόλη *</label>
+          <input type="text" id="city" placeholder="Αθήνα" required/>
+        </div>
+        <div class="form-group">
+          <label>Ταχ. Κώδικας *</label>
+          <input type="text" id="postal" placeholder="10563" maxlength="5" required/>
+        </div>
+      </div>
+      <div class="form-row full">
+        <div class="form-group">
+          <label>Νομός</label>
+          <select id="region">
+            <option>Αττική</option><option>Θεσσαλονίκη</option>
+            <option>Πάτρα</option><option>Ηράκλειο</option>
+            <option>Λάρισα</option><option>Βόλος</option>
+            <option>Ιωάννινα</option><option>Άλλο</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row full">
+        <div class="form-group">
+          <label>Σχόλια / Οδηγίες παράδοσης</label>
+          <input type="text" id="notes" placeholder="π.χ. 3ος όροφος, κουδούνι Παπαδόπουλος"/>
+        </div>
+      </div>
+      <!-- Invoice fields (optional) -->
+      <div style="margin-top:1rem">
+        <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;font-size:.78rem;color:var(--muted)">
+          <input type="checkbox" id="needsInvoice" onchange="toggleInvoice(this.checked)"/>
+          Χρειάζομαι τιμολόγιο (για επιχειρήσεις)
+        </label>
+        <div id="invoiceFields" style="display:none;margin-top:1rem;padding:1rem;background:var(--cream);border:1px solid var(--border)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Επωνυμία εταιρείας</label>
+              <input type="text" id="company" placeholder="ΑΒΓ ΕΠΕ"/>
+            </div>
+            <div class="form-group">
+              <label>ΑΦΜ</label>
+              <input type="text" id="vatNumber" placeholder="123456789"/>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>ΔΟΥ</label>
+              <input type="text" id="taxOffice" placeholder="Α' Αθηνών"/>
+            </div>
+            <div class="form-group">
+              <label>Επάγγελμα</label>
+              <input type="text" id="profession" placeholder="Έμπορος"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="co-submit" onclick="goToStep2()" style="margin-top:1.5rem">Συνέχεια → Επιλογή Αποστολής</button>
+    </div>
+
+    <!-- Step 2: Shipping Method -->
+    <div class="co-panel" id="panelStep2" style="display:none">
+      <h3>2. Τρόπος αποστολής</h3>
+      <div class="ship-opts" id="shipOpts"></div>
+      <div style="display:flex;gap:1rem;margin-top:1.5rem">
+        <button class="co-submit" style="background:var(--cream);color:var(--ink);border:1px solid var(--border);flex:0 0 auto;padding:.9rem 1.5rem" onclick="goToStep(1)">← Πίσω</button>
+        <button class="co-submit" onclick="goToStep3()">Συνέχεια → Πληρωμή</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Payment -->
+    <div class="co-panel" id="panelStep3" style="display:none">
+      <h3>3. Τρόπος πληρωμής</h3>
+      <div class="pay-opts" id="payOpts"></div>
+      <div style="display:flex;gap:1rem;margin-top:1.5rem">
+        <button class="co-submit" style="background:var(--cream);color:var(--ink);border:1px solid var(--border);flex:0 0 auto;padding:.9rem 1.5rem" onclick="goToStep(2)">← Πίσω</button>
+        <button class="co-submit" id="placeOrderBtn" onclick="placeOrder()">🔒 Ολοκλήρωση Παραγγελίας</button>
+      </div>
+      <div class="co-secure-note">🔒 Η πληρωμή σας κρυπτογραφείται με SSL 256-bit. Τα στοιχεία κάρτας δεν αποθηκεύονται.</div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT: Order Summary -->
+  <div class="co-summary">
+    <div class="sum-card">
+      <div class="sum-title">Η παραγγελία σας</div>
+      <div class="sum-items" id="sumItems"></div>
+      <div class="coupon-row">
+        <input class="coupon-input" id="couponInput" type="text" placeholder="Κωδικός έκπτωσης (π.χ. WELCOME10)"/>
+        <button class="coupon-btn" onclick="applyCoupon()">Εφαρμογή</button>
+      </div>
+      <hr class="sum-divider"/>
+      <div class="sum-row"><span>Υποσύνολο</span><span id="sumSubtotal">0,00€</span></div>
+      <div class="sum-row" id="discountRow" style="display:none;color:#e74c3c"><span>Έκπτωση</span><span id="discountAmt"></span></div>
+      <div class="sum-row"><span>Μεταφορικά</span><span id="sumShipping">—</span></div>
+      <div class="sum-row" id="codRow" style="display:none"><span>Χρέωση αντικαταβολής</span><span id="codFee">1,50€</span></div>
+      <hr class="sum-divider"/>
+      <div class="sum-total"><span>Σύνολο <small style="font-size:.65rem;color:var(--muted)">(συμπ. ΦΠΑ 24%)</small></span><span id="sumTotal">0,00€</span></div>
+    </div>
+  </div>
+
+</div><!-- /.co-layout -->
+</div><!-- /#checkoutMain -->
+
+<!-- Confirmation Screen -->
+<div class="confirm-screen" id="confirmScreen">
+  <div class="confirm-icon">✅</div>
+  <h1 class="confirm-title"><em>Η παραγγελία<br>σας καταχωρήθηκε!</em></h1>
+  <p class="confirm-sub">Σας ευχαριστούμε! Θα λάβετε email επιβεβαίωσης σύντομα.<br>Αριθμός παραγγελίας:</p>
+  <div class="confirm-id" id="confirmId">LUM-XXXXXX</div>
+  <div class="confirm-steps">
+    <div class="confirm-step"><div class="confirm-step-icon">📧</div><div>Email επιβεβαίωσης στη διεύθυνση που δώσατε</div></div>
+    <div class="confirm-step"><div class="confirm-step-icon">📦</div><div>Ετοιμασία παραγγελίας εντός 24 ωρών</div></div>
+    <div class="confirm-step"><div class="confirm-step-icon">🚚</div><div>Αποστολή με courier — θα λάβετε tracking code</div></div>
+    <div class="confirm-step"><div class="confirm-step-icon">🏡</div><div>Παράδοση στο χώρο σας σε 1-3 εργάσιμες ημέρες</div></div>
+  </div>
+  <a href="index.html" class="back-home">← Επιστροφή στο κατάστημα</a>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/store.js"></script>
+<script src="js/agent.js"></script>
+<script>
+// ── Load cart ──────────────────────────────────────────────────
+let cart = JSON.parse(localStorage.getItem('lum_cart') || '[]');
+let selectedShipping = null;
+let selectedPayment = 'viva';
+let discount = 0;
+let currentStep = 1;
+
+// ── Summary Render ─────────────────────────────────────────────
+function renderSummary() {
+  const fmt = n => n.toFixed(2).replace('.',',') + '€';
+  const subtotal = cart.reduce((s,i) => s+i.price*i.qty, 0);
+  const shippingPrice = selectedShipping ? (subtotal >= CONFIG.shipping.freeThreshold ? 0 : selectedShipping.price) : null;
+  const codFee = (selectedPayment === 'cod' && CONFIG.payment.cod.enabled) ? CONFIG.payment.cod.fee : 0;
+  const total = subtotal - discount + (shippingPrice || 0) + codFee;
+
+  document.getElementById('sumItems').innerHTML = cart.map(i=>`
+    <div class="sum-item">
+      <div class="sum-img">${i.emoji}<span class="sum-qty-badge">${i.qty}</span></div>
+      <div style="flex:1">
+        <div class="sum-item-name">${i.name}</div>
+        <div class="sum-item-size">${i.size}${i.color?' · '+i.color:''}</div>
+      </div>
+      <div class="sum-item-price">${fmt(i.price*i.qty)}</div>
+    </div>`).join('');
+
+  document.getElementById('sumSubtotal').textContent = fmt(subtotal);
+  document.getElementById('sumShipping').textContent = shippingPrice === null ? '—' : shippingPrice === 0 ? '🎉 Δωρεάν' : fmt(shippingPrice);
+  document.getElementById('sumTotal').textContent = fmt(total);
+  document.getElementById('codRow').style.display = codFee ? 'flex' : 'none';
+  if(discount > 0){ document.getElementById('discountRow').style.display='flex'; document.getElementById('discountAmt').textContent = '-'+fmt(discount); }
+  return total;
+}
+
+// ── Shipping Options ───────────────────────────────────────────
+function renderShipping() {
+  const subtotal = cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const free = subtotal >= CONFIG.shipping.freeThreshold;
+  document.getElementById('shipOpts').innerHTML = CONFIG.shipping.methods.map((m,idx) => {
+    const price = free ? 0 : m.price;
+    const priceStr = price === 0 ? '<span class="ship-free">Δωρεάν</span>' : `<span class="ship-price">${price.toFixed(2).replace('.',',')}€</span>`;
+    return `
+    <label class="ship-opt ${idx===0?'sel':''}" onclick="selectShipping('${m.id}',this)">
+      <input type="radio" name="ship" value="${m.id}" ${idx===0?'checked':''} style="margin-right:.3rem"/>
+      <span class="ship-icon">${m.logo}</span>
+      <div class="ship-info">
+        <div class="ship-name">${m.name}</div>
+        <div class="ship-days">⏱ ${m.days}</div>
+      </div>
+      ${priceStr}
+    </label>`;
+  }).join('');
+  selectedShipping = CONFIG.shipping.methods[0];
+  renderSummary();
+}
+
+function selectShipping(id, el) {
+  document.querySelectorAll('.ship-opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+  selectedShipping = CONFIG.shipping.methods.find(m=>m.id===id);
+  renderSummary();
+}
+
+// ── Payment Options ────────────────────────────────────────────
+function renderPayment() {
+  const opts = [
+    { id:'viva', icon:'💳', label:'Κάρτα — Viva Wallet', badges:['Visa','MC','Amex'],
+      body:`<p class="pay-note">🔒 Θα μεταφερθείτε στην ασφαλή σελίδα <strong>Viva Wallet</strong> για να ολοκληρώσετε την πληρωμή. Δεχόμαστε Visa, Mastercard, American Express.</p>` },
+    { id:'paypal', icon:'🅿️', label:'PayPal', badges:['PayPal'],
+      body:`<p class="pay-note">Πληρώστε μέσω <strong>PayPal</strong>. Θα μεταφερθείτε στο PayPal για να ολοκληρώσετε την αγορά.</p>` },
+    { id:'bank', icon:'🏦', label:'Τραπεζική Μεταφορά', badges:['Τράπεζα'],
+      body:`<div class="pay-note bank-detail">
+        <strong>Τράπεζα:</strong> ${CONFIG.payment.bankTransfer.bank}<br>
+        <strong>IBAN:</strong> ${CONFIG.payment.bankTransfer.iban}<br>
+        <strong>Δικαιούχος:</strong> ${CONFIG.payment.bankTransfer.beneficiary}<br>
+        <strong>Αιτιολογία:</strong> Αριθμός παραγγελίας (θα σταλεί με email)<br>
+        <small style="color:#999">Η παραγγελία επεξεργάζεται μόλις επιβεβαιωθεί η κατάθεση (1-2 εργάσιμες)</small>
+      </div>` },
+    ...(CONFIG.payment.cod.enabled ? [
+      { id:'cod', icon:'💵', label:`Αντικαταβολή (+${CONFIG.payment.cod.fee.toFixed(2).replace('.',',')}€)`, badges:['COD'],
+        body:`<p class="pay-note">Πληρώστε <strong>μετρητά</strong> κατά την παραλαβή. Χρέωση αντικαταβολής: ${CONFIG.payment.cod.fee.toFixed(2).replace('.',',')}€</p>` }
+    ] : []),
+  ];
+
+  document.getElementById('payOpts').innerHTML = opts.map((o,idx) => `
+    <div class="pay-opt ${idx===0?'sel':''}" id="payOpt-${o.id}">
+      <div class="pay-opt-head" onclick="selectPayment('${o.id}')">
+        <input type="radio" name="pay" value="${o.id}" ${idx===0?'checked':''} style="margin-right:.3rem"/>
+        <span class="pay-icon">${o.icon}</span>
+        <span class="pay-label">${o.label}</span>
+        <div class="pay-badges">${o.badges.map(b=>`<span class="pay-badge">${b}</span>`).join('')}</div>
+      </div>
+      <div class="pay-body ${idx===0?'on':''}" id="payBody-${o.id}">${o.body}</div>
+    </div>`).join('');
+}
+
+function selectPayment(id) {
+  selectedPayment = id;
+  document.querySelectorAll('.pay-opt').forEach(o=>o.classList.remove('sel'));
+  document.querySelectorAll('.pay-body').forEach(b=>b.classList.remove('on'));
+  document.getElementById('payOpt-'+id)?.classList.add('sel');
+  document.getElementById('payBody-'+id)?.classList.add('on');
+  document.querySelector(`input[value="${id}"]`).checked = true;
+  renderSummary();
+}
+
+// ── Coupon ─────────────────────────────────────────────────────
+function applyCoupon() {
+  const code = document.getElementById('couponInput').value.toUpperCase().trim();
+  const coupons = { 'WELCOME10': 0.10, 'SUMMER20': 0.20, 'VIP15': 0.15 };
+  if(coupons[code]) {
+    const subtotal = cart.reduce((s,i)=>s+i.price*i.qty,0);
+    discount = subtotal * coupons[code];
+    showToast(`✅ Κουπόνι ${code} — ${(coupons[code]*100).toFixed(0)}% έκπτωση!`);
+    renderSummary();
+  } else {
+    showToast('❌ Μη έγκυρος κωδικός');
+  }
+}
+
+// ── Step Navigation ────────────────────────────────────────────
+function goToStep(n) {
+  [1,2,3].forEach(i => {
+    document.getElementById(`panelStep${i}`).style.display = i===n ? 'block':'none';
+    const ind = document.getElementById(`step${i}-ind`);
+    ind.classList.remove('active','done');
+    if(i < n) ind.classList.add('done');
+    if(i === n) ind.classList.add('active');
+    if(i < n && document.getElementById(`line${i}`)) document.getElementById(`line${i}`).classList.add('done');
+    else if(document.getElementById(`line${i}`)) document.getElementById(`line${i}`).classList.remove('done');
+  });
+  currentStep = n;
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+function goToStep2() {
+  if(!validateStep1()) return;
+  renderShipping();
+  goToStep(2);
+}
+
+function goToStep3() {
+  if(!selectedShipping) { showToast('⚠️ Επιλέξτε τρόπο αποστολής'); return; }
+  renderPayment();
+  renderSummary();
+  goToStep(3);
+}
+
+// ── Validation ─────────────────────────────────────────────────
+function validateStep1() {
+  const fields = ['firstName','lastName','email','phone','address','city','postal'];
+  let ok = true;
+  fields.forEach(id => {
+    const el = document.getElementById(id);
+    if(!el.value.trim()) { el.classList.add('error'); ok=false; }
+    else el.classList.remove('error');
+  });
+  if(!ok) showToast('⚠️ Συμπληρώστε όλα τα υποχρεωτικά πεδία');
+  if(!document.getElementById('email').value.includes('@')) { document.getElementById('email').classList.add('error'); ok=false; }
+  return ok;
+}
+
+function toggleInvoice(show) { document.getElementById('invoiceFields').style.display = show ? 'block':'none'; }
+
+// ── Place Order ────────────────────────────────────────────────
+async function placeOrder() {
+  const btn = document.getElementById('placeOrderBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Επεξεργασία…';
+
+  const subtotal = cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const shippingPrice = subtotal >= CONFIG.shipping.freeThreshold ? 0 : (selectedShipping?.price||0);
+  const codFee = selectedPayment==='cod' ? CONFIG.payment.cod.fee : 0;
+  const total = subtotal - discount + shippingPrice + codFee;
+
+  const paymentLabel = { viva:'Κάρτα (Viva Wallet)', paypal:'PayPal', bank:'Τραπεζική Μεταφορά', cod:'Αντικαταβολή' };
+
+  const order = Store.createOrder({
+    customer: {
+      firstName: document.getElementById('firstName').value,
+      lastName:  document.getElementById('lastName').value,
+      email:     document.getElementById('email').value,
+      phone:     document.getElementById('phone').value,
+      address:   document.getElementById('address').value,
+      city:      document.getElementById('city').value,
+      postal:    document.getElementById('postal').value,
+      region:    document.getElementById('region').value,
+      notes:     document.getElementById('notes').value,
+      vat:       document.getElementById('vatNumber')?.value || '',
+    },
+    items:    cart,
+    subtotal, discount, total,
+    shipping: { ...selectedShipping, price: shippingPrice },
+    payment:  { id: selectedPayment, label: paymentLabel[selectedPayment] },
+    coupon:   discount > 0 ? document.getElementById('couponInput').value : null,
+  });
+
+  // Upsert customer
+  Store.upsertCustomer(order.customer.email, { ...order.customer });
+
+  // Send notifications
+  try {
+    await Agent.sendOrderConfirmation(order);
+    await Agent.notifyAdmin(order);
+    await Agent.submitToMyData(order);
+  } catch(err) {
+    console.warn('Notification error (non-fatal):', err);
+  }
+
+  // Clear cart
+  localStorage.removeItem('lum_cart');
+
+  // Handle payment redirect
+  if(selectedPayment === 'viva' && CONFIG.payment.vivaWallet.merchantId !== 'YOUR_MERCHANT_ID') {
+    // Redirect to Viva Wallet Smart Checkout
+    window.location.href = CONFIG.payment.vivaWallet.checkoutUrl + order.id;
+    return;
+  }
+
+  // Show confirmation
+  document.getElementById('checkoutMain').style.display = 'none';
+  const conf = document.getElementById('confirmScreen');
+  conf.classList.add('on');
+  document.getElementById('confirmId').textContent = order.id;
+  document.getElementById('progressBar').style.display = 'none';
+  btn.disabled = false;
+}
+
+// ── Toast ──────────────────────────────────────────────────────
+function showToast(msg) {
+  let t = document.getElementById('toast2');
+  if(!t) {
+    t = document.createElement('div');
+    t.id='toast2';
+    t.style.cssText='position:fixed;bottom:2rem;right:2rem;background:#111;color:#fff;padding:.9rem 1.5rem;font-size:.78rem;z-index:999;max-width:280px;font-family:var(--sans)';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.style.transform = 'none';
+  clearTimeout(window._tTimer);
+  window._tTimer = setTimeout(()=>t.style.transform='translateY(120%)',3000);
+}
+
+// ── Init ───────────────────────────────────────────────────────
+renderSummary();
+
+if(!cart.length) {
+  document.querySelector('.co-layout').innerHTML = `
+    <div style="text-align:center;padding:4rem;grid-column:1/-1">
+      <div style="font-size:3rem;margin-bottom:1rem">🛍</div>
+      <h2 style="font-family:var(--serif);font-style:italic;margin-bottom:1rem">Το καλάθι σας είναι άδειο</h2>
+      <a href="index.html" style="color:var(--rose);text-decoration:underline">← Επιστροφή στο κατάστημα</a>
+    </div>`;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LUMIÈRE — Γυναικεία Μόδα | Επίλεκτα Κομμάτια Online</title>
+<meta name="description" content="Ανακαλύψτε την τελευταία συλλογή γυναικείας μόδας LUMIÈRE. Φορέματα, μπλούζες, παντελόνια και αξεσουάρ. Δωρεάν αποστολή από 49€."/>
+<meta name="keywords" content="γυναικεία μόδα, φορέματα, eshop ρούχα, lumiere, online shop ελλάδα"/>
+<link rel="canonical" href="https://lumiere.gr/"/>
+<!-- Open Graph -->
+<meta property="og:type"        content="website"/>
+<meta property="og:url"         content="https://lumiere.gr/"/>
+<meta property="og:title"       content="LUMIÈRE — Γυναικεία Μόδα"/>
+<meta property="og:description" content="Επίλεκτα κομμάτια γυναικείας μόδας. Δωρεάν αποστολή από 49€."/>
+<meta property="og:image"       content="https://lumiere.gr/assets/og-image.jpg"/>
+<meta name="twitter:card"       content="summary_large_image"/>
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,300;0,6..96,400;1,6..96,300;1,6..96,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#faf8f4;--white:#ffffff;--ink:#111110;--ink2:#2a2a28;
+  --muted:#999890;--border:#e8e4da;--rose:#c4856a;--rose-lt:#d4a090;
+  --taupe:#b8b0a0;--green:#4caf82;
+  --serif:'Bodoni Moda',Georgia,serif;--sans:'Jost',sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);--ease2:cubic-bezier(.4,0,.2,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);overflow-x:hidden;cursor:none}
+
+/* Cursor */
+.cur{width:6px;height:6px;background:var(--ink);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transition:transform .1s,background .2s}
+.cur-ring{width:32px;height:32px;border:1px solid rgba(17,17,16,.3);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998}
+.cur.h{transform:translate(-50%,-50%) scale(3);background:var(--rose);opacity:.5}
+.cur-ring.h{transform:translate(-50%,-50%) scale(.3);opacity:0}
+
+/* ── Top Bar ── */
+.topbar{background:var(--ink);color:rgba(255,255,255,.7);text-align:center;padding:.5rem;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:300}
+.topbar strong{color:#fff}
+.topbar a{color:var(--rose-lt);text-decoration:none}
+
+/* ── Nav ── */
+header{background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;transition:background .3s}
+.nav-wrap{max-width:1400px;margin:0 auto;padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;height:70px}
+.logo{font-family:var(--serif);font-size:1.8rem;font-weight:400;letter-spacing:.15em;color:var(--ink);text-decoration:none;font-style:italic}
+.nav-center{display:flex;gap:3rem}
+.nav-center a{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;font-weight:400;transition:color .2s;position:relative}
+.nav-center a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--rose);transition:width .3s}
+.nav-center a:hover{color:var(--ink)}.nav-center a:hover::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:1.2rem}
+.nav-icon{background:none;border:none;cursor:none;color:var(--muted);transition:color .2s;display:flex;align-items:center;position:relative;padding:.3rem}
+.nav-icon:hover{color:var(--rose)}
+.cart-dot{position:absolute;top:2px;right:2px;width:18px;height:18px;background:var(--rose);border-radius:50%;font-size:.55rem;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:500}
+/* Hamburger */
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:none;padding:.3rem}
+.hamburger span{width:22px;height:1.5px;background:var(--ink);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4.7px,4.7px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(4.7px,-4.7px)}
+
+/* ── Mobile Nav ── */
+.mobile-nav{position:fixed;inset:0;background:var(--cream);z-index:190;transform:translateX(-100%);transition:transform .5s var(--ease);padding:5rem 2.5rem 2.5rem;display:flex;flex-direction:column;gap:2rem;overflow-y:auto}
+.mobile-nav.on{transform:none}
+.mobile-nav a{font-family:var(--serif);font-size:2rem;font-style:italic;color:var(--ink);text-decoration:none;font-weight:300;border-bottom:1px solid var(--border);padding-bottom:1rem}
+.mobile-nav a:hover{color:var(--rose)}
+
+/* ── Search Overlay ── */
+.search-overlay{position:fixed;inset:0;background:rgba(250,248,244,.97);z-index:300;display:flex;flex-direction:column;align-items:center;padding:8rem 2rem 2rem;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(8px)}
+.search-overlay.on{opacity:1;pointer-events:all}
+.search-close{position:absolute;top:1.5rem;right:2rem;background:none;border:none;font-size:1.5rem;cursor:none;color:var(--muted);transition:color .2s}
+.search-close:hover{color:var(--rose)}
+.search-form{width:100%;max-width:600px;display:flex;border-bottom:2px solid var(--ink);margin-bottom:2rem}
+.search-input{flex:1;border:none;background:none;font-family:var(--serif);font-size:2rem;font-style:italic;padding:.5rem 0;outline:none;color:var(--ink)}
+.search-input::placeholder{color:var(--muted)}
+.search-results{width:100%;max-width:600px;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.search-item{text-decoration:none;color:var(--ink)}
+.search-item img,.search-item .s-emoji{width:100%;aspect-ratio:3/4;object-fit:cover;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:2.5rem;margin-bottom:.5rem}
+.search-item .s-name{font-size:.78rem;font-family:var(--serif);font-style:italic}
+.search-item .s-price{font-size:.72rem;color:var(--rose)}
+
+/* ── Hero ── */
+.hero{height:92vh;display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
+.hero-left{position:relative;overflow:hidden;background:var(--ink2);display:flex;align-items:flex-end;padding:3rem}
+.hero-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.25}
+.hero-bg-text{font-family:var(--serif);font-size:28vw;font-weight:300;color:#fff;line-height:.8;font-style:italic;user-select:none}
+.hero-content{position:relative;z-index:1}
+.hero-season{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--rose-lt);margin-bottom:1.2rem;font-weight:400}
+.hero-title{font-family:var(--serif);font-size:clamp(3rem,5vw,5.5rem);font-weight:300;color:#fff;line-height:1;margin-bottom:1.5rem;font-style:italic}
+.hero-cta{display:inline-flex;align-items:center;gap:.8rem;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.3);padding-bottom:.4rem;transition:border-color .3s,gap .3s}
+.hero-cta:hover{border-color:#fff;gap:1.2rem}
+.hero-right{display:grid;grid-template-rows:1fr 1fr}
+.hero-r-top{background:#e8e0d5;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.hero-r-bot{background:#d4cfc6;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.hero-r-top::before,.hero-r-bot::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 60% 40%,rgba(196,133,106,.15),transparent 60%)}
+.hero-prod-preview{text-align:center;position:relative;z-index:1}
+.hero-emoji{font-size:5rem;display:block;margin-bottom:.8rem;animation:float 4s ease-in-out infinite}
+.hero-prod-label{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink2);font-weight:400}
+.hero-prod-price{font-family:var(--serif);font-size:1.3rem;color:var(--rose);font-style:italic;margin-top:.2rem}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* ── Marquee ── */
+.marquee-wrap{background:var(--rose);padding:.7rem 0;overflow:hidden;white-space:nowrap}
+.marquee-track{display:inline-flex;animation:marquee 20s linear infinite}
+.marquee-item{font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:#fff;font-weight:300;padding:0 2rem}
+.marquee-dot{color:rgba(255,255,255,.4)}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── Section Commons ── */
+.container{max-width:1400px;margin:0 auto;padding:0 2.5rem}
+.sec-label{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--rose);font-weight:400;margin-bottom:.8rem}
+.sec-title{font-family:var(--serif);font-size:clamp(2rem,3.5vw,3.2rem);font-weight:300;line-height:1.1;font-style:italic}
+
+/* ── Categories ── */
+.cats-section{padding:5rem 0}
+.cats-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2.5rem}
+.view-all{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:.2rem;transition:color .2s,border-color .2s}
+.view-all:hover{color:var(--rose);border-color:var(--rose)}
+.cats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
+.cat-card{background:var(--cream);aspect-ratio:3/4;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:1.8rem;text-decoration:none;position:relative;overflow:hidden;transition:transform .4s var(--ease)}
+.cat-card:hover{transform:scale(.98)}
+.cat-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:6rem;opacity:.15;transition:transform .6s var(--ease),opacity .4s}
+.cat-card:hover .cat-bg{transform:scale(1.1);opacity:.2}
+.cat-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(17,17,16,.5) 0%,transparent 50%)}
+.cat-info{position:relative;z-index:1;text-align:center}
+.cat-name{font-family:var(--serif);font-size:1.2rem;font-weight:300;color:#fff;font-style:italic;display:block;margin-bottom:.2rem}
+.cat-count{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.cat-bg-color{position:absolute;inset:0}
+
+/* ── Products ── */
+.products-section{padding:5rem 0;background:var(--white)}
+.products-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:2.5rem;flex-wrap:wrap;gap:1rem}
+.filter-tabs{display:flex;gap:0;border:1px solid var(--border);border-radius:2px;overflow:hidden}
+.filter-tab{padding:.5rem 1.3rem;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;background:none;border:none;border-right:1px solid var(--border);cursor:none;color:var(--muted);transition:all .2s;font-family:var(--sans)}
+.filter-tab:last-child{border-right:none}
+.filter-tab.active,.filter-tab:hover{background:var(--ink);color:#fff}
+.sort-wrap{display:flex;align-items:center;gap:.8rem}
+.sort-label{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.sort-sel{border:1px solid var(--border);background:var(--white);font-family:var(--sans);font-size:.78rem;color:var(--ink);padding:.4rem .8rem;outline:none;cursor:pointer}
+
+/* ── Product Card ── */
+.prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.pcard{background:var(--cream);position:relative;cursor:none}
+.pcard-img{aspect-ratio:3/4;background:var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.pcard-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.pcard-img .pcard-img-inner{font-size:4.5rem;transition:transform .6s var(--ease)}
+.pcard:hover .pcard-img img,.pcard:hover .pcard-img-inner{transform:scale(1.05) translateY(-6px)}
+.pcard-badge{position:absolute;top:.8rem;left:.8rem;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .7rem;font-weight:400;z-index:1}
+.badge-new{background:var(--ink);color:#fff}
+.badge-sale{background:var(--rose);color:#fff}
+.badge-exclusive{background:transparent;border:1px solid var(--ink);color:var(--ink)}
+.pcard-actions{position:absolute;bottom:.8rem;left:.8rem;right:.8rem;display:flex;gap:.5rem;opacity:0;transform:translateY(8px);transition:all .3s var(--ease);z-index:2}
+.pcard:hover .pcard-actions{opacity:1;transform:translateY(0)}
+.pact-btn{flex:1;background:rgba(250,248,244,.92);backdrop-filter:blur(4px);border:none;padding:.6rem;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;cursor:none;font-family:var(--sans);transition:background .2s,color .2s}
+.pact-btn:hover{background:var(--ink);color:#fff}
+.pact-wish{width:36px;background:rgba(250,248,244,.92);backdrop-filter:blur(4px);border:none;display:flex;align-items:center;justify-content:center;cursor:none;font-size:.9rem;transition:background .2s}
+.pact-wish:hover,.pact-wish.on{background:var(--rose);color:#fff}
+.pcard-info{padding:1rem 0 .5rem}
+.pcard-brand{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.2rem}
+.pcard-name{font-family:var(--serif);font-size:.95rem;font-weight:300;font-style:italic;color:var(--ink);margin-bottom:.4rem;line-height:1.3}
+.pcard-sizes{display:flex;gap:.3rem;margin-bottom:.5rem;flex-wrap:wrap}
+.sz{font-size:.6rem;border:1px solid var(--border);padding:.15rem .4rem;color:var(--muted);cursor:none;transition:all .2s}
+.sz:hover{border-color:var(--ink);color:var(--ink)}
+.sz.out{text-decoration:line-through;opacity:.4}
+.pcard-footer{display:flex;align-items:center;justify-content:space-between}
+.pcard-price{font-size:1rem;font-weight:400;color:var(--ink)}
+.pcard-price-old{font-size:.78rem;color:var(--muted);text-decoration:line-through;margin-left:.4rem}
+.pcard-price-sale{color:var(--rose)}
+.pcard-rating{display:flex;gap:.15rem}
+.star{color:var(--taupe);font-size:.65rem}
+.star.on{color:var(--rose)}
+
+/* ── Quick View Modal ── */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:400;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(3px)}
+.modal-bg.on{opacity:1;pointer-events:all}
+.qv-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-60%);width:90%;max-width:800px;max-height:90vh;overflow-y:auto;background:var(--cream);z-index:401;transition:transform .4s var(--ease),opacity .4s;opacity:0}
+.qv-modal.on{transform:translate(-50%,-50%);opacity:1}
+.qv-inner{display:grid;grid-template-columns:1fr 1fr;min-height:400px}
+.qv-img{background:var(--border);display:flex;align-items:center;justify-content:center;font-size:7rem;aspect-ratio:3/4;position:relative;overflow:hidden}
+.qv-img img{width:100%;height:100%;object-fit:cover}
+.qv-body{padding:2.5rem}
+.qv-brand{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem}
+.qv-name{font-family:var(--serif);font-size:1.6rem;font-style:italic;font-weight:300;line-height:1.2;margin-bottom:.8rem}
+.qv-price{font-size:1.3rem;color:var(--rose);margin-bottom:1.2rem}
+.qv-price span{font-family:var(--serif);font-style:italic}
+.qv-old{font-size:.9rem;color:var(--muted);text-decoration:line-through;margin-left:.5rem}
+.qv-section{margin-bottom:1.2rem}
+.qv-label{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+.qv-sizes{display:flex;gap:.4rem;flex-wrap:wrap}
+.qv-size{padding:.4rem .8rem;border:1px solid var(--border);font-size:.72rem;cursor:none;transition:all .2s;background:none}
+.qv-size:hover,.qv-size.sel{border-color:var(--ink);background:var(--ink);color:#fff}
+.qv-colors{display:flex;gap:.5rem}
+.qv-color{width:24px;height:24px;border-radius:50%;cursor:none;border:2px solid transparent;transition:border-color .2s}
+.qv-color.sel{border-color:var(--ink)}
+.qv-desc{font-size:.82rem;line-height:1.7;color:var(--muted);margin-bottom:1.5rem}
+.qv-add{width:100%;background:var(--ink);color:#fff;border:none;padding:1rem;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;cursor:none;font-family:var(--sans);transition:background .2s;margin-bottom:.5rem}
+.qv-add:hover{background:var(--rose)}
+.qv-close{position:absolute;top:.8rem;right:.8rem;background:none;border:none;font-size:1.2rem;cursor:none;color:var(--muted);transition:color .2s}
+.qv-close:hover{color:var(--rose)}
+
+/* ── Size Guide ── */
+.size-guide{position:fixed;top:50%;left:50%;transform:translate(-50%,-60%);width:90%;max-width:560px;background:var(--cream);z-index:402;padding:2.5rem;opacity:0;pointer-events:none;transition:all .4s var(--ease)}
+.size-guide.on{transform:translate(-50%,-50%);opacity:1;pointer-events:all}
+.size-guide h3{font-family:var(--serif);font-size:1.4rem;font-style:italic;margin-bottom:1.5rem}
+.size-table{width:100%;border-collapse:collapse;font-size:.8rem}
+.size-table th{background:var(--ink);color:#fff;padding:.5rem .8rem;text-align:left;font-weight:400;letter-spacing:.1em}
+.size-table td{padding:.5rem .8rem;border-bottom:1px solid var(--border);color:var(--muted)}
+.size-table tr:hover td{background:rgba(196,133,106,.05)}
+
+/* ── Lookbook ── */
+.lookbook{padding:6rem 0;background:var(--ink2)}
+.look-header{text-align:center;margin-bottom:3rem}
+.look-header .sec-label{color:var(--rose-lt)}
+.look-header .sec-title{color:#fff}
+.look-grid{display:grid;grid-template-columns:1fr 2fr 1fr;gap:1px;background:rgba(255,255,255,.1)}
+.look-item{background:var(--ink2);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;cursor:none}
+.look-item.tall{aspect-ratio:2/3}
+.look-item.short{aspect-ratio:3/4}
+.look-item:nth-child(2){grid-row:span 2;aspect-ratio:auto}
+.look-inner{text-align:center;padding:2rem;position:relative;z-index:1}
+.look-emoji{font-size:5rem;margin-bottom:1.5rem;display:block;opacity:.9}
+.look-num{font-family:var(--serif);font-size:.8rem;font-style:italic;color:var(--rose-lt);margin-bottom:.5rem}
+.look-title{font-family:var(--serif);font-size:1.4rem;font-weight:300;color:#fff;font-style:italic;margin-bottom:.3rem}
+.look-price{font-size:.78rem;color:var(--taupe)}
+.look-item-overlay{position:absolute;inset:0;background:rgba(0,0,0,.2);opacity:0;transition:opacity .3s;display:flex;align-items:center;justify-content:center}
+.look-item:hover .look-item-overlay{opacity:1}
+.look-shop-btn{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:#fff;border:1px solid rgba(255,255,255,.5);padding:.6rem 1.4rem;background:transparent;cursor:none;font-family:var(--sans);transition:all .2s}
+.look-shop-btn:hover{background:#fff;color:var(--ink)}
+
+/* ── Trust Section ── */
+.trust-section{background:var(--white);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.trust-grid{max-width:1400px;margin:0 auto;padding:2.5rem;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
+.trust-item{display:flex;align-items:center;gap:1rem}
+.trust-icon{width:44px;height:44px;background:var(--cream);border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.trust-text strong{display:block;font-size:.78rem;font-weight:500;color:var(--ink);letter-spacing:.05em;margin-bottom:.1rem}
+.trust-text span{font-size:.72rem;color:var(--muted)}
+
+/* ── Strip Banner ── */
+.strip-banner{background:var(--rose);padding:4rem 0;text-align:center}
+.strip-banner .sec-title{color:#fff;font-size:clamp(2rem,4vw,3.8rem)}
+.strip-banner p{color:rgba(255,255,255,.8);font-size:.9rem;margin:1rem 0 2rem;letter-spacing:.05em}
+.btn-white{display:inline-flex;align-items:center;gap:.8rem;background:#fff;color:var(--rose);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;padding:.9rem 2.2rem;transition:all .2s}
+.btn-white:hover{background:var(--ink);color:#fff}
+
+/* ── Cart Drawer ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(2px)}
+.overlay.on{opacity:1;pointer-events:all}
+.cart-panel{position:fixed;top:0;right:0;width:400px;max-width:100vw;height:100vh;background:var(--cream);z-index:301;transform:translateX(100%);transition:transform .5s var(--ease);display:flex;flex-direction:column}
+.cart-panel.on{transform:none}
+.cart-head{padding:2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.cart-head h2{font-family:var(--serif);font-size:1.3rem;font-style:italic;font-weight:300}
+.close-x{background:none;border:none;cursor:none;color:var(--muted);font-size:1.3rem;transition:color .2s;line-height:1}
+.close-x:hover{color:var(--rose)}
+.cart-body{flex:1;overflow-y:auto;padding:1.5rem 2rem}
+.cart-empty-state{text-align:center;padding:3rem 0;color:var(--muted)}
+.empty-icon{font-size:2.5rem;margin-bottom:1rem}
+.citem{display:flex;gap:1rem;padding:1.2rem 0;border-bottom:1px solid var(--border)}
+.citem-img{width:70px;height:90px;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:1.8rem;flex-shrink:0;overflow:hidden}
+.citem-img img{width:100%;height:100%;object-fit:cover}
+.citem-body{flex:1}
+.citem-name{font-family:var(--serif);font-size:.9rem;font-style:italic;margin-bottom:.2rem}
+.citem-size{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.citem-price{font-size:.9rem;color:var(--rose);margin-top:.4rem}
+.citem-qty{display:flex;align-items:center;gap:.5rem;margin-top:.5rem}
+.qb{background:var(--border);border:none;width:24px;height:24px;display:flex;align-items:center;justify-content:center;cursor:none;font-size:.8rem;transition:background .2s}
+.qb:hover{background:var(--ink);color:#fff}
+.qnum{font-size:.8rem;min-width:20px;text-align:center}
+.rm-btn{margin-left:auto;background:none;border:none;font-size:.68rem;color:var(--muted);cursor:none;text-decoration:underline;transition:color .2s}
+.rm-btn:hover{color:#e74c3c}
+.cart-foot{padding:1.5rem 2rem;border-top:1px solid var(--border)}
+.ctotal-row{display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:.4rem;color:var(--muted)}
+.ctotal-main{display:flex;justify-content:space-between;font-size:1rem;padding:.8rem 0;border-top:1px solid var(--border);margin-top:.5rem;margin-bottom:1.2rem}
+.ctotal-main span:last-child{font-family:var(--serif);font-style:italic;color:var(--rose);font-size:1.1rem}
+.checkout-cta{width:100%;background:var(--ink);color:#fff;border:none;padding:1.1rem;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;cursor:none;font-family:var(--sans);transition:background .2s;text-decoration:none;display:block;text-align:center}
+.checkout-cta:hover{background:var(--rose)}
+.cart-secure{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:.8rem}
+
+/* ── WhatsApp / Support Widget ── */
+.support-widget{position:fixed;bottom:2rem;right:2rem;z-index:250;display:flex;flex-direction:column;align-items:flex-end;gap:.6rem}
+.support-btns{display:flex;flex-direction:column;gap:.5rem;opacity:0;transform:translateY(10px);pointer-events:none;transition:all .3s var(--ease)}
+.support-btns.on{opacity:1;transform:none;pointer-events:all}
+.support-link{display:flex;align-items:center;gap:.6rem;padding:.6rem 1rem;border-radius:2rem;font-size:.72rem;font-weight:500;text-decoration:none;white-space:nowrap;transition:transform .2s}
+.support-link:hover{transform:scale(1.05)}
+.wa-btn{background:#25D366;color:#fff}
+.phone-btn{background:var(--ink);color:#fff}
+.support-toggle{width:52px;height:52px;border-radius:50%;background:var(--rose);border:none;cursor:none;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.3rem;transition:transform .3s,background .2s;box-shadow:0 4px 16px rgba(196,133,106,.4)}
+.support-toggle:hover{background:var(--ink)}
+.support-toggle.on{transform:rotate(45deg)}
+
+/* ── Cookie Banner ── */
+.cookie-banner{position:fixed;bottom:0;left:0;right:0;background:var(--ink2);color:rgba(255,255,255,.8);padding:1.2rem 2rem;z-index:500;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;font-size:.78rem;line-height:1.6;transform:translateY(100%);transition:transform .5s var(--ease)}
+.cookie-banner.on{transform:none}
+.cookie-banner a{color:var(--rose-lt);text-decoration:underline}
+.cookie-actions{display:flex;gap:.8rem;flex-shrink:0}
+.cookie-btn{padding:.5rem 1.2rem;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;cursor:none;border:none;font-family:var(--sans);transition:all .2s}
+.cookie-accept{background:var(--rose);color:#fff}
+.cookie-accept:hover{background:var(--rose-lt)}
+.cookie-reject{background:transparent;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.2)}
+.cookie-reject:hover{color:#fff}
+
+/* ── Newsletter Popup ── */
+.nl-popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-60%);width:90%;max-width:500px;background:var(--cream);z-index:450;padding:3rem;text-align:center;opacity:0;pointer-events:none;transition:all .5s var(--ease)}
+.nl-popup.on{transform:translate(-50%,-50%);opacity:1;pointer-events:all}
+.nl-close{position:absolute;top:1rem;right:1rem;background:none;border:none;cursor:none;color:var(--muted);font-size:1.2rem}
+.nl-close:hover{color:var(--rose)}
+.nl-label{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rose);margin-bottom:.5rem}
+.nl-title{font-family:var(--serif);font-size:2rem;font-style:italic;margin-bottom:.5rem}
+.nl-sub{font-size:.85rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.6}
+.nl-form{display:flex;gap:.5rem}
+.nl-input{flex:1;border:1px solid var(--border);background:var(--white);padding:.7rem 1rem;font-family:var(--sans);font-size:.82rem;outline:none}
+.nl-input:focus{border-color:var(--rose)}
+.nl-submit{background:var(--ink);color:#fff;border:none;padding:.7rem 1.5rem;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;cursor:none;font-family:var(--sans);white-space:nowrap;transition:background .2s}
+.nl-submit:hover{background:var(--rose)}
+.nl-note{font-size:.65rem;color:var(--muted);margin-top:1rem}
+
+/* ── Toast ── */
+.toast2{position:fixed;bottom:6rem;right:2rem;background:var(--ink);color:#fff;padding:.9rem 1.5rem;font-size:.78rem;letter-spacing:.05em;z-index:400;transform:translateY(120%);transition:transform .4s var(--ease);display:flex;align-items:center;gap:.6rem;max-width:280px}
+.toast2.on{transform:none}
+.toast2-dot{width:6px;height:6px;background:var(--rose);border-radius:50%;flex-shrink:0}
+
+/* ── Footer ── */
+footer{background:var(--ink);color:rgba(255,255,255,.45);padding:5rem 0 0}
+.footer-grid{max-width:1400px;margin:0 auto;padding:0 2.5rem 3rem;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:4rem}
+.fbrand .logo{color:#fff;font-size:2rem;display:block;margin-bottom:1rem}
+.fbrand p{font-size:.82rem;line-height:1.9;max-width:260px}
+.fbrand-legal{font-size:.7rem;color:rgba(255,255,255,.25);margin-top:1.2rem;line-height:1.8}
+.fcol h4{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:1.2rem;font-weight:400}
+.fcol a{display:block;font-size:.82rem;color:rgba(255,255,255,.4);text-decoration:none;margin-bottom:.5rem;transition:color .2s}
+.fcol a:hover{color:var(--rose-lt)}
+.footer-payments{display:flex;gap:.5rem;margin-top:1.5rem;flex-wrap:wrap}
+.pay-badge{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);padding:.3rem .7rem;font-size:.62rem;letter-spacing:.08em;color:rgba(255,255,255,.45);border-radius:2px}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);max-width:1400px;margin:0 auto;padding:1.5rem 2.5rem;display:flex;justify-content:space-between;font-size:.7rem;flex-wrap:wrap;gap:.5rem}
+.footer-bottom a{color:rgba(255,255,255,.3);text-decoration:none;transition:color .2s}
+.footer-bottom a:hover{color:var(--rose-lt)}
+
+/* ── Reveal ── */
+.rev{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rev.vis{opacity:1;transform:none}
+.rev.d1{transition-delay:.1s}.rev.d2{transition-delay:.2s}.rev.d3{transition-delay:.3s}.rev.d4{transition-delay:.4s}
+
+/* ── Responsive ── */
+@media(max-width:1024px){
+  .prod-grid{grid-template-columns:repeat(3,1fr)}
+  .cats-grid{grid-template-columns:repeat(2,1fr)}
+  .look-grid{grid-template-columns:1fr 1fr}
+  .look-item:nth-child(2){grid-row:auto}
+  .trust-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:2.5rem}
+}
+@media(max-width:768px){
+  .hero{grid-template-columns:1fr;height:auto}
+  .hero-left{height:70vh}
+  .hero-right{display:none}
+  .nav-center{display:none}
+  .hamburger{display:flex}
+  .prod-grid{grid-template-columns:repeat(2,1fr)}
+  body{cursor:auto}
+  .cur,.cur-ring{display:none}
+  .qv-inner{grid-template-columns:1fr}
+  .nl-form{flex-direction:column}
+}
+@media(max-width:480px){
+  .prod-grid{grid-template-columns:1fr 1fr;gap:.8rem}
+  .cats-grid{grid-template-columns:1fr 1fr}
+  .trust-grid{grid-template-columns:1fr;gap:1.2rem}
+  .cookie-banner{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curR"></div>
+
+<!-- Cookie Consent Banner -->
+<div class="cookie-banner" id="cookieBanner">
+  <div>Χρησιμοποιούμε cookies για να βελτιώσουμε την εμπειρία σας. Διαβάστε την <a href="privacy.html">Πολιτική Απορρήτου</a> μας.</div>
+  <div class="cookie-actions">
+    <button class="cookie-btn cookie-accept" onclick="acceptCookies()">Αποδοχή</button>
+    <button class="cookie-btn cookie-reject" onclick="rejectCookies()">Απόρριψη</button>
+  </div>
+</div>
+
+<!-- Top Bar -->
+<div class="topbar">🚚 Δωρεάν αποστολή από <strong>49€</strong> · <a href="tel:+302100000000">Τηλ: 210 0000000</a> · 9:00-21:00</div>
+
+<!-- Header -->
+<header>
+  <div class="nav-wrap">
+    <a href="index.html" class="logo">Lumière</a>
+    <nav class="nav-center">
+      <a href="#products">Νέα</a>
+      <a href="#foremata">Ρούχα</a>
+      <a href="#aksesuar">Αξεσουάρ</a>
+      <a href="#products" onclick="setFilter('sale',this)">Προσφορές</a>
+      <a href="#lookbook">Lookbook</a>
+    </nav>
+    <div class="nav-right">
+      <button class="nav-icon" id="searchBtn" title="Αναζήτηση">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </button>
+      <button class="nav-icon" id="wishBtn" title="Αγαπημένα">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+      <button class="nav-icon" id="cartBtn" title="Καλάθι">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="cart-dot" id="cartDot">0</span>
+      </button>
+      <button class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Nav -->
+<nav class="mobile-nav" id="mobileNav">
+  <a href="#products">Νέα Άφιξη</a>
+  <a href="#foremata">Φορέματα</a>
+  <a href="#blouzes">Μπλούζες</a>
+  <a href="#pantelonia">Παντελόνια</a>
+  <a href="#aksesuar">Αξεσουάρ</a>
+  <a href="#products">Προσφορές</a>
+  <a href="checkout.html">Καλάθι</a>
+</nav>
+
+<!-- Search Overlay -->
+<div class="search-overlay" id="searchOverlay">
+  <button class="search-close" id="searchClose">✕</button>
+  <div class="search-form">
+    <input class="search-input" id="searchInput" type="text" placeholder="Αναζήτηση προϊόντος…" autocomplete="off"/>
+  </div>
+  <div class="search-results" id="searchResults"></div>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-bg"><div class="hero-bg-text">SS</div></div>
+    <div class="hero-content">
+      <div class="hero-season">Spring/Summer Collection 2025</div>
+      <h1 class="hero-title">Η μόδα<br>σε νέο<br>επίπεδο.</h1>
+      <a href="#products" class="hero-cta">Ανακάλυψε τη συλλογή →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-r-top">
+      <div class="hero-prod-preview">
+        <span class="hero-emoji">👗</span>
+        <div class="hero-prod-label">Midi Φόρεμα Linen</div>
+        <div class="hero-prod-price">89,00€</div>
+      </div>
+    </div>
+    <div class="hero-r-bot">
+      <div class="hero-prod-preview">
+        <span class="hero-emoji" style="animation-delay:.8s">👜</span>
+        <div class="hero-prod-label">Τσάντα Structured</div>
+        <div class="hero-prod-price">145,00€</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Νέα Συλλογή</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Δωρεάν Αποστολή</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Exclusive Pieces</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Ελληνικό Brand</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">14 Ημέρες Επιστροφή</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Ασφαλής Πληρωμή</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Νέα Συλλογή</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Δωρεάν Αποστολή</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Exclusive Pieces</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Ελληνικό Brand</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">14 Ημέρες Επιστροφή</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Ασφαλής Πληρωμή</span><span class="marquee-dot">·</span>
+  </div>
+</div>
+
+<!-- Categories -->
+<section class="cats-section" id="foremata">
+  <div class="container">
+    <div class="cats-header rev">
+      <div><div class="sec-label">Shop by category</div><h2 class="sec-title">Τι ψάχνεις;</h2></div>
+      <a href="#products" class="view-all">Όλες οι κατηγορίες →</a>
+    </div>
+    <div class="cats-grid">
+      <a href="#products" class="cat-card rev d1" onclick="setFilterLink('foremata')">
+        <div class="cat-bg-color" style="background:#c4b8a8"></div>
+        <div class="cat-bg">👗</div>
+        <div class="cat-overlay"></div>
+        <div class="cat-info"><span class="cat-name">Φορέματα</span><span class="cat-count" id="cnt-foremata">48 προϊόντα</span></div>
+      </a>
+      <a href="#products" class="cat-card rev d2" onclick="setFilterLink('blouzes')">
+        <div class="cat-bg-color" style="background:#a8b4a8"></div>
+        <div class="cat-bg">👚</div>
+        <div class="cat-overlay"></div>
+        <div class="cat-info"><span class="cat-name">Μπλούζες</span><span class="cat-count" id="cnt-blouzes">62 προϊόντα</span></div>
+      </a>
+      <a href="#products" class="cat-card rev d3" onclick="setFilterLink('pantelonia')">
+        <div class="cat-bg-color" style="background:#b4a8c0"></div>
+        <div class="cat-bg">👖</div>
+        <div class="cat-overlay"></div>
+        <div class="cat-info"><span class="cat-name">Παντελόνια</span><span class="cat-count" id="cnt-pantelonia">35 προϊόντα</span></div>
+      </a>
+      <a href="#products" class="cat-card rev d4" onclick="setFilterLink('aksesuar')">
+        <div class="cat-bg-color" style="background:#c0a5a0"></div>
+        <div class="cat-bg">👜</div>
+        <div class="cat-overlay"></div>
+        <div class="cat-info"><span class="cat-name">Αξεσουάρ</span><span class="cat-count" id="cnt-aksesuar">29 προϊόντα</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Products -->
+<section class="products-section" id="products">
+  <div class="container">
+    <div class="products-nav rev">
+      <div><div class="sec-label">Νέες αφίξεις</div><h2 class="sec-title">New In</h2></div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.8rem">
+        <div class="filter-tabs">
+          <button class="filter-tab active" onclick="setFilter('all',this)">Όλα</button>
+          <button class="filter-tab" onclick="setFilter('foremata',this)">Φορέματα</button>
+          <button class="filter-tab" onclick="setFilter('blouzes',this)">Μπλούζες</button>
+          <button class="filter-tab" onclick="setFilter('pantelonia',this)">Παντελόνια</button>
+          <button class="filter-tab" onclick="setFilter('aksesuar',this)">Αξεσουάρ</button>
+        </div>
+        <div style="display:flex;gap:1rem;align-items:center">
+          <div class="sort-wrap">
+            <span class="sort-label">Ταξινόμηση:</span>
+            <select class="sort-sel" id="sortSel" onchange="renderProducts()">
+              <option value="newest">Νεότερα</option>
+              <option value="price_asc">Τιμή ↑</option>
+              <option value="price_desc">Τιμή ↓</option>
+              <option value="rating">Αξιολόγηση</option>
+            </select>
+          </div>
+          <button class="view-all" onclick="openSizeGuide()" style="border:1px solid var(--border);padding:.3rem .7rem;font-size:.65rem">📏 Οδηγός Μεγεθών</button>
+        </div>
+      </div>
+    </div>
+    <div class="prod-grid" id="prodGrid"></div>
+  </div>
+</section>
+
+<!-- Lookbook -->
+<section class="lookbook" id="lookbook">
+  <div class="container">
+    <div class="look-header rev">
+      <div class="sec-label">Editorial</div>
+      <h2 class="sec-title" style="color:#fff">Spring Lookbook</h2>
+    </div>
+    <div class="look-grid rev">
+      <div class="look-item short">
+        <div class="look-inner">
+          <span class="look-emoji">🌸</span>
+          <div class="look-num">Look 01</div>
+          <div class="look-title">Floral Midi</div>
+          <div class="look-price">95,00€</div>
+        </div>
+        <div class="look-item-overlay"><button class="look-shop-btn" onclick="setFilter('foremata');location.href='#products'">Shop Look</button></div>
+      </div>
+      <div class="look-item tall" style="background:#1e1e1c">
+        <div class="look-inner">
+          <span class="look-emoji" style="font-size:7rem">✨</span>
+          <div class="look-num">Look 02</div>
+          <div class="look-title">The Statement Piece</div>
+          <div class="look-price">από 120,00€</div>
+        </div>
+        <div class="look-item-overlay"><button class="look-shop-btn" onclick="location.href='#products'">Shop Look</button></div>
+      </div>
+      <div class="look-item short">
+        <div class="look-inner">
+          <span class="look-emoji">👒</span>
+          <div class="look-num">Look 03</div>
+          <div class="look-title">Summer Ready</div>
+          <div class="look-price">78,00€</div>
+        </div>
+        <div class="look-item-overlay"><button class="look-shop-btn" onclick="setFilter('aksesuar');location.href='#products'">Shop Look</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Trust Badges -->
+<section class="trust-section">
+  <div class="trust-grid">
+    <div class="trust-item rev d1">
+      <div class="trust-icon">🚚</div>
+      <div class="trust-text">
+        <strong>Δωρεάν Αποστολή</strong>
+        <span>Για αγορές από 49€ εντός Ελλάδας</span>
+      </div>
+    </div>
+    <div class="trust-item rev d2">
+      <div class="trust-icon">↩️</div>
+      <div class="trust-text">
+        <strong>14 Ημέρες Επιστροφή</strong>
+        <span>Εύκολη & δωρεάν επιστροφή</span>
+      </div>
+    </div>
+    <div class="trust-item rev d3">
+      <div class="trust-icon">🔒</div>
+      <div class="trust-text">
+        <strong>Ασφαλής Πληρωμή</strong>
+        <span>Viva Wallet · Κάρτα · Αντικαταβολή</span>
+      </div>
+    </div>
+    <div class="trust-item rev d4">
+      <div class="trust-icon">📞</div>
+      <div class="trust-text">
+        <strong>Εξυπηρέτηση 9:00–21:00</strong>
+        <span>Τηλ. & WhatsApp καθημερινά</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Strip Banner -->
+<div class="strip-banner">
+  <div class="container rev">
+    <h2 class="sec-title">Exclusive collection.<br><em>Μόνο online.</em></h2>
+    <p>Εγγραφείτε στο newsletter και αποκτήστε -10% στην πρώτη σας παραγγελία</p>
+    <button class="btn-white" onclick="openNewsletter()">Εγγραφή τώρα →</button>
+  </div>
+</div>
+
+<!-- Cart Drawer -->
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-head">
+    <h2>Καλάθι</h2>
+    <button class="close-x" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <div class="cart-empty-state"><div class="empty-icon">🛍</div><p style="font-size:.85rem;color:var(--muted)">Το καλάθι σας είναι άδειο</p></div>
+  </div>
+  <div class="cart-foot" id="cartFoot" style="display:none">
+    <div class="ctotal-row"><span>Υποσύνολο</span><span id="cSub">0,00€</span></div>
+    <div class="ctotal-row"><span>Μεταφορικά</span><span id="cShip">Υπολογισμός στο checkout</span></div>
+    <div class="ctotal-main"><span>Σύνολο</span><span id="cTot">0,00€</span></div>
+    <a href="checkout.html" class="checkout-cta">Ολοκλήρωση παραγγελίας →</a>
+    <div class="cart-secure">🔒 Ασφαλής πληρωμή · Viva Wallet · Κάρτα</div>
+  </div>
+</div>
+
+<!-- Modal Backdrop -->
+<div class="modal-bg" id="modalBg" onclick="closeAllModals()"></div>
+
+<!-- Quick View Modal -->
+<div class="qv-modal" id="qvModal">
+  <button class="qv-close" onclick="closeQuickView()">✕</button>
+  <div class="qv-inner">
+    <div class="qv-img" id="qvImg"></div>
+    <div class="qv-body" id="qvBody"></div>
+  </div>
+</div>
+
+<!-- Size Guide Modal -->
+<div class="size-guide" id="sizeGuide">
+  <button class="qv-close" onclick="closeSizeGuide()" style="position:static;margin-bottom:.5rem;float:right">✕</button>
+  <h3>Οδηγός Μεγεθών</h3>
+  <table class="size-table">
+    <thead><tr><th>Μέγεθος</th><th>Στήθος (cm)</th><th>Μέση (cm)</th><th>Γοφοί (cm)</th></tr></thead>
+    <tbody>
+      <tr><td>XS</td><td>80–82</td><td>60–62</td><td>86–88</td></tr>
+      <tr><td>S</td><td>84–86</td><td>64–66</td><td>90–92</td></tr>
+      <tr><td>M</td><td>88–90</td><td>68–70</td><td>94–96</td></tr>
+      <tr><td>L</td><td>92–96</td><td>72–76</td><td>98–102</td></tr>
+      <tr><td>XL</td><td>100–104</td><td>80–84</td><td>106–110</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:.72rem;color:var(--muted);margin-top:1rem">💡 Αν είστε ανάμεσα σε 2 μεγέθη, επιλέξτε το μεγαλύτερο.</p>
+</div>
+
+<!-- Newsletter Popup -->
+<div class="nl-popup" id="nlPopup">
+  <button class="nl-close" onclick="closeNewsletter()">✕</button>
+  <div class="nl-label">Exclusive offer</div>
+  <h2 class="nl-title">Καλώς ήρθατε<br><em>στο Lumière</em></h2>
+  <p class="nl-sub">Εγγραφείτε και αποκτήστε <strong>-10%</strong> στην πρώτη σας παραγγελία. Ενημερωθείτε πρώτοι για νέες συλλογές.</p>
+  <div class="nl-form">
+    <input class="nl-input" id="nlEmail" type="email" placeholder="Το email σας…"/>
+    <button class="nl-submit" onclick="subscribeNewsletter()">Εγγραφή</button>
+  </div>
+  <p class="nl-note">Δεν κάνουμε spam. Μπορείτε να διαγραφείτε οποτεδήποτε.</p>
+</div>
+
+<!-- Toast -->
+<div class="toast2" id="toast2"><div class="toast2-dot"></div><span id="toastTxt">Προστέθηκε στο καλάθι</span></div>
+
+<!-- Support Widget -->
+<div class="support-widget">
+  <div class="support-btns" id="supportBtns">
+    <a href="tel:+302100000000" class="support-link phone-btn">📞 210 000 0000</a>
+    <a href="https://wa.me/30XXXXXXXXXX?text=Γεια+σας,+χρειάζομαι+βοήθεια" target="_blank" class="support-link wa-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp
+    </a>
+  </div>
+  <button class="support-toggle" id="supportToggle" onclick="toggleSupport()">💬</button>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="fbrand rev">
+      <a href="index.html" class="logo">Lumière</a>
+      <p>Η γυναικεία μόδα στο καλύτερό της. Επιλεγμένα κομμάτια, αποκλειστικές συλλογές και στυλ που εμπνέει.</p>
+      <div class="footer-payments">
+        <span class="pay-badge">Viva Wallet</span>
+        <span class="pay-badge">Visa</span>
+        <span class="pay-badge">Mastercard</span>
+        <span class="pay-badge">PayPal</span>
+        <span class="pay-badge">Αντικαταβολή</span>
+      </div>
+      <div class="fbrand-legal">
+        LUMIÈRE ΜΟΝΟΠΡΟΣΩΠΗ ΙΚΕ<br>
+        ΑΦΜ: 123456789 | ΔΟΥ: Α' Αθηνών<br>
+        ΓΕΜΗ: 123456789000<br>
+        Ερμού 10, 10563 Αθήνα
+      </div>
+    </div>
+    <div class="fcol rev d1">
+      <h4>Κατάστημα</h4>
+      <a href="#products">Νέα προϊόντα</a>
+      <a href="#foremata">Φορέματα</a>
+      <a href="#blouzes">Μπλούζες</a>
+      <a href="#aksesuar">Αξεσουάρ</a>
+      <a href="#lookbook">Lookbook</a>
+    </div>
+    <div class="fcol rev d2">
+      <h4>Εξυπηρέτηση</h4>
+      <a href="#">Αποστολές & Παράδοση</a>
+      <a href="#">Επιστροφές</a>
+      <a href="#">Οδηγός Μεγεθών</a>
+      <a href="#">Συχνές Ερωτήσεις</a>
+      <a href="#">Επικοινωνία</a>
+    </div>
+    <div class="fcol rev d3">
+      <h4>Ακολούθησέ μας</h4>
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">TikTok</a>
+      <a href="#">Pinterest</a>
+      <a href="#" onclick="openNewsletter()">Newsletter</a>
+      <h4 style="margin-top:1.5rem">Τηλέφωνο</h4>
+      <a href="tel:+302100000000">210 000 0000</a>
+      <a href="mailto:info@lumiere.gr">info@lumiere.gr</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Lumière. Κατασκευή για <strong>lumiere.gr</strong></span>
+    <span>
+      <a href="privacy.html">Πολιτική Απορρήτου</a> ·
+      <a href="gdpr.html">GDPR</a> ·
+      <a href="terms.html">Όροι Χρήσης</a> ·
+      <a href="admin.html">Admin</a>
+    </span>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="js/config.js"></script>
+<script src="js/store.js"></script>
+<script>
+// ── Cursor ────────────────────────────────────────────────────
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+let mx=0,my=0,fx=0,fy=0;
+if(cur){
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.transform=`translate(${mx-3}px,${my-3}px)`});
+  (function loop(){fx+=(mx-fx)*.1;fy+=(my-fy)*.1;curR.style.transform=`translate(${fx-16}px,${fy-16}px)`;requestAnimationFrame(loop)})();
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cur.classList.add('h');curR.classList.add('h')});
+    el.addEventListener('mouseleave',()=>{cur.classList.remove('h');curR.classList.remove('h')});
+  });
+}
+
+// ── State ─────────────────────────────────────────────────────
+let cart = JSON.parse(localStorage.getItem('lum_cart') || '[]');
+let currentFilter = 'all';
+
+function saveCart(){ localStorage.setItem('lum_cart', JSON.stringify(cart)); }
+
+// ── Product Rendering ─────────────────────────────────────────
+function renderProducts(filter) {
+  if(filter !== undefined) currentFilter = filter;
+  const sort = document.getElementById('sortSel')?.value || 'newest';
+  let list = Store.getActiveProducts();
+  if(currentFilter !== 'all') list = list.filter(p => p.category === currentFilter || p.badge === currentFilter);
+
+  if(sort === 'price_asc')  list = [...list].sort((a,b) => a.price - b.price);
+  if(sort === 'price_desc') list = [...list].sort((a,b) => b.price - a.price);
+  if(sort === 'rating')     list = [...list].sort((a,b) => b.rating - a.rating);
+
+  const wl = Store.getWishlist();
+  const badgeMap = { new:'new', sale:'sale', exclusive:'exclusive' };
+  const badgeLabel = { new:'New', sale:'Sale', exclusive:'Exclusive' };
+
+  document.getElementById('prodGrid').innerHTML = list.map(p => {
+    const imgHtml = `<div class="pcard-img-inner">${p.emoji}</div>`;
+    const badgeHtml = p.badge ? `<span class="pcard-badge badge-${badgeMap[p.badge]||p.badge}">${badgeLabel[p.badge]||p.badge}</span>` : '';
+    const sizesHtml = p.sizes ? `<div class="pcard-sizes">${p.sizes.map(s=>`<span class="sz">${s}</span>`).join('')}</div>` : '<div style="height:1.2rem"></div>';
+    const wishedClass = wl.includes(p.id) ? 'on' : '';
+    return `
+    <div class="pcard rev" data-id="${p.id}">
+      <div class="pcard-img" onclick="openQuickView(${p.id})">
+        ${badgeHtml}
+        ${imgHtml}
+        <div class="pcard-actions">
+          <button class="pact-btn" onclick="event.stopPropagation();addCart(${p.id})">+ Καλάθι</button>
+          <button class="pact-wish ${wishedClass}" onclick="event.stopPropagation();toggleWish(${p.id},this)" title="Αγαπημένα">♡</button>
+        </div>
+      </div>
+      <div class="pcard-info">
+        <div class="pcard-brand">${p.brand}</div>
+        <div class="pcard-name">${p.name}</div>
+        ${sizesHtml}
+        <div class="pcard-footer">
+          <div>
+            <span class="pcard-price ${p.oldPrice?'pcard-price-sale':''}">${p.price.toFixed(2).replace('.',',')}€</span>
+            ${p.oldPrice?`<span class="pcard-price-old">${p.oldPrice.toFixed(2).replace('.',',')}€</span>`:''}
+          </div>
+          <div class="pcard-rating">${[...Array(5)].map((_,i)=>`<span class="star ${i<p.rating?'on':''}">★</span>`).join('')}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  document.querySelectorAll('.rev:not(.vis)').forEach(el=>ro.observe(el));
+}
+
+function setFilter(f,btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-tab').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  renderProducts();
+}
+
+function setFilterLink(f) {
+  setFilter(f);
+  document.querySelectorAll('.filter-tab').forEach(b=>{
+    if(b.textContent.toLowerCase().includes(f.slice(0,3))) b.classList.add('active');
+    else b.classList.remove('active');
+  });
+}
+
+// ── Cart ───────────────────────────────────────────────────────
+function addCart(id, size, color) {
+  const p = Store.getProduct(id);
+  if(!p) return;
+  const sz = size || (p.sizes ? p.sizes[0] : '-');
+  const key = id + '-' + sz;
+  const ex = cart.find(x=>x.key===key);
+  if(ex) ex.qty++;
+  else cart.push({ ...p, key, qty:1, size:sz, color: color||'' });
+  saveCart();
+  updateCartUI();
+  showToast(`${p.emoji} ${p.name.split(' ').slice(0,3).join(' ')} προστέθηκε`);
+}
+
+function updateCartUI() {
+  const count = cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('cartDot').textContent = count;
+  const subtotal = cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const fmt = n => n.toFixed(2).replace('.',',')+'€';
+  document.getElementById('cSub').textContent = fmt(subtotal);
+  document.getElementById('cTot').textContent = fmt(subtotal);
+  const body = document.getElementById('cartBody');
+  const foot = document.getElementById('cartFoot');
+  if(!cart.length){
+    body.innerHTML='<div class="cart-empty-state"><div class="empty-icon">🛍</div><p style="font-size:.85rem;color:var(--muted)">Το καλάθι σας είναι άδειο</p></div>';
+    foot.style.display='none';
+  } else {
+    foot.style.display='block';
+    body.innerHTML = cart.map(item=>`
+      <div class="citem">
+        <div class="citem-img">${item.emoji}</div>
+        <div class="citem-body">
+          <div class="citem-name">${item.name}</div>
+          <div class="citem-size">Μέγεθος: ${item.size}${item.color?' · '+item.color:''}</div>
+          <div class="citem-price">${(item.price*item.qty).toFixed(2).replace('.',',')}€</div>
+          <div class="citem-qty">
+            <button class="qb" onclick="chQty('${item.key}',-1)">−</button>
+            <span class="qnum">${item.qty}</span>
+            <button class="qb" onclick="chQty('${item.key}',1)">+</button>
+            <button class="rm-btn" onclick="rmItem('${item.key}')">Αφαίρεση</button>
+          </div>
+        </div>
+      </div>`).join('');
+  }
+}
+
+function chQty(key,d){ const i=cart.find(x=>x.key===key); if(!i)return; i.qty+=d; if(i.qty<=0)cart=cart.filter(x=>x.key!==key); saveCart(); updateCartUI(); }
+function rmItem(key){ cart=cart.filter(x=>x.key!==key); saveCart(); updateCartUI(); }
+function openCart(){ document.getElementById('cartPanel').classList.add('on'); document.getElementById('overlay').classList.add('on'); }
+function closeCart(){ document.getElementById('cartPanel').classList.remove('on'); document.getElementById('overlay').classList.remove('on'); }
+document.getElementById('cartBtn').onclick=openCart;
+
+// ── Wishlist ───────────────────────────────────────────────────
+function toggleWish(id, btn) {
+  const added = Store.toggleWishlist(id);
+  btn.classList.toggle('on', added);
+  showToast(added ? '❤️ Αποθηκεύτηκε στα αγαπημένα' : '💔 Αφαιρέθηκε από αγαπημένα');
+}
+
+// ── Quick View ────────────────────────────────────────────────
+function openQuickView(id) {
+  const p = Store.getProduct(id);
+  if(!p) return;
+  const fmt = n => n.toFixed(2).replace('.',',')+'€';
+  document.getElementById('qvImg').innerHTML = `<div style="font-size:7rem">${p.emoji}</div>`;
+  document.getElementById('qvBody').innerHTML = `
+    <div class="qv-brand">${p.brand} · ${p.sku}</div>
+    <div class="qv-name">${p.name}</div>
+    <div class="qv-price">
+      <span>${fmt(p.price)}</span>
+      ${p.oldPrice?`<span class="qv-old">${fmt(p.oldPrice)}</span>`:''}
+    </div>
+    <p class="qv-desc">${p.description||''}</p>
+    ${p.sizes?`<div class="qv-section"><div class="qv-label">Μέγεθος</div><div class="qv-sizes">${p.sizes.map((s,i)=>`<button class="qv-size ${i===0?'sel':''}" onclick="this.closest('.qv-sizes').querySelectorAll('.qv-size').forEach(b=>b.classList.remove('sel'));this.classList.add('sel')">${s}</button>`).join('')}</div></div>`:''}
+    ${p.colors?`<div class="qv-section"><div class="qv-label">Χρώμα</div><div style="font-size:.8rem;color:var(--muted)">${p.colors.join(' · ')}</div></div>`:''}
+    <button class="qv-add" onclick="
+      const sz=document.querySelector('.qv-sizes .sel')?.textContent;
+      addCart(${id},sz);closeQuickView();">+ Προσθήκη στο Καλάθι</button>
+    <div style="font-size:.65rem;color:var(--muted);text-align:center">🔒 Ασφαλής παραγγελία · Επιστροφή 14 ημερών</div>
+  `;
+  document.getElementById('qvModal').classList.add('on');
+  document.getElementById('modalBg').classList.add('on');
+}
+function closeQuickView(){ document.getElementById('qvModal').classList.remove('on'); document.getElementById('modalBg').classList.remove('on'); }
+
+// ── Size Guide ────────────────────────────────────────────────
+function openSizeGuide(){ document.getElementById('sizeGuide').classList.add('on'); document.getElementById('modalBg').classList.add('on'); }
+function closeSizeGuide(){ document.getElementById('sizeGuide').classList.remove('on'); document.getElementById('modalBg').classList.remove('on'); }
+function closeAllModals(){ closeQuickView(); closeSizeGuide(); closeNewsletter(); document.getElementById('modalBg').classList.remove('on'); }
+
+// ── Search ────────────────────────────────────────────────────
+document.getElementById('searchBtn').onclick=()=>{ document.getElementById('searchOverlay').classList.add('on'); document.getElementById('searchInput').focus(); };
+document.getElementById('searchClose').onclick=()=>document.getElementById('searchOverlay').classList.remove('on');
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ document.getElementById('searchOverlay').classList.remove('on'); closeAllModals(); } });
+
+document.getElementById('searchInput').addEventListener('input', e => {
+  const q = e.target.value.trim().toLowerCase();
+  const res = document.getElementById('searchResults');
+  if(q.length < 2){ res.innerHTML=''; return; }
+  const found = Store.getActiveProducts().filter(p=>p.name.toLowerCase().includes(q)||p.sku.toLowerCase().includes(q));
+  res.innerHTML = found.slice(0,8).map(p=>`
+    <div class="search-item" onclick="document.getElementById('searchOverlay').classList.remove('on');openQuickView(${p.id})" style="cursor:pointer">
+      <div class="s-emoji">${p.emoji}</div>
+      <div class="s-name">${p.name}</div>
+      <div class="s-price">${p.price.toFixed(2).replace('.',',')}€</div>
+    </div>`).join('') || '<p style="grid-column:1/-1;color:var(--muted);font-size:.85rem">Δεν βρέθηκαν αποτελέσματα.</p>';
+});
+
+// ── Mobile Nav ────────────────────────────────────────────────
+document.getElementById('hamburger').onclick = function(){
+  this.classList.toggle('open');
+  document.getElementById('mobileNav').classList.toggle('on');
+};
+
+// ── Support Widget ────────────────────────────────────────────
+function toggleSupport(){
+  document.getElementById('supportBtns').classList.toggle('on');
+  document.getElementById('supportToggle').classList.toggle('on');
+}
+
+// ── Newsletter ────────────────────────────────────────────────
+function openNewsletter(){ document.getElementById('nlPopup').classList.add('on'); document.getElementById('modalBg').classList.add('on'); }
+function closeNewsletter(){ document.getElementById('nlPopup').classList.remove('on'); document.getElementById('modalBg').classList.remove('on'); }
+function subscribeNewsletter(){
+  const email = document.getElementById('nlEmail').value;
+  if(!email.includes('@')){ showToast('⚠️ Εισάγετε έγκυρο email'); return; }
+  localStorage.setItem('lum_nl','1');
+  closeNewsletter();
+  showToast('✅ Εγγραφή επιτυχής! Κωδικός -10%: WELCOME10');
+}
+// Show popup after 6 seconds if not subscribed
+if(!localStorage.getItem('lum_nl') && !localStorage.getItem('lum_nl_skip')){
+  setTimeout(()=>{ if(document.getElementById('nlPopup')) openNewsletter(); },6000);
+}
+
+// ── Cookie Consent ────────────────────────────────────────────
+if(!localStorage.getItem('lum_cookies')){
+  setTimeout(()=>document.getElementById('cookieBanner').classList.add('on'),1500);
+}
+function acceptCookies(){ localStorage.setItem('lum_cookies','accepted'); document.getElementById('cookieBanner').classList.remove('on'); }
+function rejectCookies(){ localStorage.setItem('lum_cookies','rejected'); document.getElementById('cookieBanner').classList.remove('on'); }
+
+// ── Toast ─────────────────────────────────────────────────────
+let tTimer;
+function showToast(msg){
+  const t=document.getElementById('toast2');
+  document.getElementById('toastTxt').textContent=msg;
+  t.classList.add('on');
+  clearTimeout(tTimer);
+  tTimer=setTimeout(()=>t.classList.remove('on'),3000);
+}
+
+// ── Scroll Reveal ─────────────────────────────────────────────
+const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')})},{threshold:.1});
+document.querySelectorAll('.rev').forEach(el=>ro.observe(el));
+
+// ── Init ──────────────────────────────────────────────────────
+renderProducts();
+updateCartUI();
+
+// Schema.org JSON-LD for SEO
+document.head.insertAdjacentHTML('beforeend',`<script type="application/ld+json">${JSON.stringify({
+  "@context":"https://schema.org",
+  "@type":"ClothingStore",
+  "name":"LUMIÈRE",
+  "url":"https://lumiere.gr",
+  "telephone":"+302100000000",
+  "address":{"@type":"PostalAddress","streetAddress":"Ερμού 10","addressLocality":"Αθήνα","postalCode":"10563","addressCountry":"GR"},
+  "openingHours":"Mo-Su 09:00-21:00",
+  "priceRange":"€€"
+})}<\/script>`);
+</script>
+</body>
+</html>

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title id="pageTitle">Προϊόν — LUMIÈRE</title>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,300;0,6..96,400;1,6..96,300;1,6..96,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#faf8f4;--white:#fff;--ink:#111110;--ink2:#2a2a28;
+  --muted:#999890;--border:#e8e4da;--rose:#c4856a;--rose-lt:#d4a090;
+  --green:#4caf82;--serif:'Bodoni Moda',serif;--sans:'Jost',sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);cursor:none}
+
+/* Nav */
+header{background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.nav-wrap{max-width:1400px;margin:0 auto;padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;height:70px}
+.logo{font-family:var(--serif);font-size:1.8rem;font-style:italic;color:var(--ink);text-decoration:none}
+.nav-right{display:flex;align-items:center;gap:1.2rem}
+.nav-icon{background:none;border:none;cursor:none;color:var(--muted);transition:color .2s;display:flex;align-items:center;position:relative;padding:.3rem}
+.nav-icon:hover{color:var(--rose)}
+.cart-dot{position:absolute;top:2px;right:2px;width:18px;height:18px;background:var(--rose);border-radius:50%;font-size:.55rem;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:500}
+.breadcrumb{max-width:1400px;margin:1.5rem auto;padding:0 2.5rem;font-size:.72rem;color:var(--muted);display:flex;gap:.5rem;align-items:center}
+.breadcrumb a{color:var(--muted);text-decoration:none;transition:color .2s}
+.breadcrumb a:hover{color:var(--rose)}
+
+/* Cursor */
+.cur{width:6px;height:6px;background:var(--ink);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transition:transform .1s,background .2s}
+.cur-ring{width:32px;height:32px;border:1px solid rgba(17,17,16,.3);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998}
+.cur.h{transform:translate(-50%,-50%) scale(3);background:var(--rose);opacity:.5}
+.cur-ring.h{transform:translate(-50%,-50%) scale(.3);opacity:0}
+
+/* Product Layout */
+.product-page{max-width:1400px;margin:0 auto;padding:0 2.5rem 6rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+@media(max-width:900px){.product-page{grid-template-columns:1fr;gap:2.5rem}}
+
+/* Gallery */
+.gallery{position:sticky;top:90px}
+.gallery-main{aspect-ratio:3/4;background:var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;margin-bottom:1rem}
+.gallery-main img{width:100%;height:100%;object-fit:cover}
+.gallery-main .g-emoji{font-size:9rem;opacity:.7}
+.gallery-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem}
+.g-thumb{aspect-ratio:3/4;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:2rem;cursor:none;border:1px solid transparent;transition:border-color .2s;overflow:hidden}
+.g-thumb img{width:100%;height:100%;object-fit:cover}
+.g-thumb.active{border-color:var(--ink)}
+.g-thumb:hover{border-color:var(--muted)}
+
+/* Product Info */
+.product-info{padding-top:1rem}
+.p-brand{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem}
+.p-name{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300;font-style:italic;line-height:1.15;margin-bottom:.5rem}
+.p-sku{font-size:.65rem;letter-spacing:.12em;color:var(--muted);margin-bottom:1rem}
+.p-rating{display:flex;align-items:center;gap:.5rem;margin-bottom:1.2rem}
+.star{color:var(--muted);font-size:.8rem}
+.star.on{color:var(--rose)}
+.p-rating span{font-size:.72rem;color:var(--muted)}
+.p-price{margin-bottom:1.5rem}
+.p-price-main{font-family:var(--serif);font-size:2rem;font-style:italic;color:var(--ink)}
+.p-price-main.sale{color:var(--rose)}
+.p-price-old{font-size:1.1rem;color:var(--muted);text-decoration:line-through;margin-left:.5rem}
+.p-price-save{font-size:.72rem;background:var(--rose);color:#fff;padding:.15rem .5rem;margin-left:.5rem}
+
+/* Options */
+.p-section{margin-bottom:1.5rem}
+.p-section-label{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;display:flex;justify-content:space-between}
+.p-section-label a{color:var(--rose);cursor:none;text-decoration:none}
+.p-section-label a:hover{text-decoration:underline}
+.color-opts{display:flex;gap:.5rem;flex-wrap:wrap}
+.color-opt{padding:.4rem .9rem;border:1px solid var(--border);font-size:.75rem;cursor:none;transition:all .2s;background:none}
+.color-opt:hover,.color-opt.sel{border-color:var(--ink);background:var(--ink);color:#fff}
+.size-opts{display:flex;gap:.5rem;flex-wrap:wrap}
+.size-opt{width:46px;height:46px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.78rem;cursor:none;transition:all .2s;background:none}
+.size-opt:hover,.size-opt.sel{border-color:var(--ink);background:var(--ink);color:#fff}
+.size-opt.out{text-decoration:line-through;opacity:.35;cursor:not-allowed}
+
+/* Add to cart */
+.add-row{display:flex;gap:.8rem;margin-bottom:1rem}
+.qty-wrap{display:flex;align-items:center;border:1px solid var(--border)}
+.qty-btn{width:40px;height:52px;border:none;background:none;font-size:1.1rem;cursor:none;transition:background .2s}
+.qty-btn:hover{background:var(--ink);color:#fff}
+.qty-num{width:44px;text-align:center;font-size:.88rem}
+.add-btn{flex:1;background:var(--ink);color:#fff;border:none;height:52px;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;cursor:none;font-family:var(--sans);transition:background .2s}
+.add-btn:hover{background:var(--rose)}
+.wish-btn{width:52px;height:52px;border:1px solid var(--border);background:none;font-size:1.1rem;cursor:none;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.wish-btn:hover,.wish-btn.on{background:var(--rose);color:#fff;border-color:var(--rose)}
+
+/* Trust strip */
+.trust-strip{border:1px solid var(--border);display:grid;grid-template-columns:repeat(3,1fr)}
+.ts-item{padding:.8rem;text-align:center;border-right:1px solid var(--border);font-size:.68rem;color:var(--muted);line-height:1.5}
+.ts-item:last-child{border-right:none}
+.ts-item strong{display:block;font-size:.75rem;color:var(--ink2);margin-bottom:.1rem}
+
+/* Accordion */
+.accordion{border-top:1px solid var(--border);margin-top:1.5rem}
+.acc-item{border-bottom:1px solid var(--border)}
+.acc-head{display:flex;justify-content:space-between;align-items:center;padding:1rem 0;cursor:none;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase}
+.acc-head:hover{color:var(--rose)}
+.acc-icon{transition:transform .3s;font-size:.8rem}
+.acc-head.open .acc-icon{transform:rotate(45deg)}
+.acc-body{overflow:hidden;max-height:0;transition:max-height .4s var(--ease)}
+.acc-body.on{max-height:400px}
+.acc-body-inner{padding:.5rem 0 1.2rem;font-size:.85rem;color:var(--muted);line-height:1.8}
+.acc-body-inner ul{padding-left:1.2rem}
+
+/* Related */
+.related{max-width:1400px;margin:0 auto;padding:0 2.5rem 5rem}
+.related h2{font-family:var(--serif);font-size:1.8rem;font-style:italic;margin-bottom:2rem}
+.related-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+@media(max-width:768px){.related-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* Toast */
+.toast2{position:fixed;bottom:2rem;right:2rem;background:var(--ink);color:#fff;padding:.9rem 1.5rem;font-size:.78rem;z-index:400;transform:translateY(120%);transition:transform .4s var(--ease);display:flex;align-items:center;gap:.6rem;max-width:280px}
+.toast2.on{transform:none}
+.toast2-dot{width:6px;height:6px;background:var(--rose);border-radius:50%;flex-shrink:0}
+
+/* Responsive */
+@media(max-width:768px){body{cursor:auto}.cur,.cur-ring{display:none}}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curR"></div>
+
+<header>
+  <div class="nav-wrap">
+    <a href="index.html" class="logo">Lumière</a>
+    <div class="nav-right">
+      <button class="nav-icon" id="cartBtn">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="cart-dot" id="cartDot">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="breadcrumb" id="breadcrumb">
+  <a href="index.html">Αρχική</a> › <span id="bcCategory">Φορέματα</span> › <span id="bcName">Προϊόν</span>
+</div>
+
+<div class="product-page" id="productPage">
+
+  <!-- Gallery -->
+  <div class="gallery">
+    <div class="gallery-main" id="galleryMain"></div>
+    <div class="gallery-thumbs" id="galleryThumbs"></div>
+  </div>
+
+  <!-- Info -->
+  <div class="product-info">
+    <div class="p-brand" id="pBrand">LUMIÈRE</div>
+    <h1 class="p-name" id="pName">Φόρτωση…</h1>
+    <div class="p-sku" id="pSku"></div>
+    <div class="p-rating" id="pRating"></div>
+    <div class="p-price" id="pPrice"></div>
+
+    <!-- Colors -->
+    <div class="p-section" id="colorSection">
+      <div class="p-section-label"><span>Χρώμα</span><span id="selectedColor"></span></div>
+      <div class="color-opts" id="colorOpts"></div>
+    </div>
+
+    <!-- Sizes -->
+    <div class="p-section" id="sizeSection">
+      <div class="p-section-label">
+        <span>Μέγεθος</span>
+        <a href="#" onclick="event.preventDefault();document.getElementById('accSize').click()">Οδηγός μεγεθών</a>
+      </div>
+      <div class="size-opts" id="sizeOpts"></div>
+    </div>
+
+    <!-- Add to cart row -->
+    <div class="add-row">
+      <div class="qty-wrap">
+        <button class="qty-btn" onclick="changeQty(-1)">−</button>
+        <div class="qty-num" id="qtyNum">1</div>
+        <button class="qty-btn" onclick="changeQty(1)">+</button>
+      </div>
+      <button class="add-btn" onclick="addToCart()">Προσθήκη στο Καλάθι</button>
+      <button class="wish-btn" id="wishBtn" onclick="toggleWish()" title="Αγαπημένα">♡</button>
+    </div>
+
+    <!-- Checkout CTA -->
+    <a href="checkout.html" style="display:block;background:var(--rose);color:#fff;text-align:center;padding:1rem;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;margin-bottom:1.5rem;transition:background .2s" onmouseover="this.style.background='var(--ink)'" onmouseout="this.style.background='var(--rose)'">
+      → Αγορά Τώρα
+    </a>
+
+    <!-- Trust -->
+    <div class="trust-strip">
+      <div class="ts-item"><strong>🚚 Δωρεάν</strong>από 49€</div>
+      <div class="ts-item"><strong>↩️ 14 Ημέρες</strong>επιστροφή</div>
+      <div class="ts-item"><strong>🔒 SSL</strong>ασφαλής αγορά</div>
+    </div>
+
+    <!-- Accordion -->
+    <div class="accordion">
+      <div class="acc-item">
+        <div class="acc-head" id="accDesc" onclick="toggleAcc('descBody',this)">
+          Περιγραφή <span class="acc-icon">+</span>
+        </div>
+        <div class="acc-body" id="descBody">
+          <div class="acc-body-inner" id="pDesc"></div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" id="accSize" onclick="toggleAcc('sizeBody',this)">
+          Οδηγός Μεγεθών <span class="acc-icon">+</span>
+        </div>
+        <div class="acc-body" id="sizeBody">
+          <div class="acc-body-inner">
+            <table style="width:100%;border-collapse:collapse;font-size:.8rem">
+              <thead><tr style="background:var(--ink);color:#fff"><th style="padding:.4rem .6rem;text-align:left">Μέγεθος</th><th style="padding:.4rem .6rem">Στήθος</th><th style="padding:.4rem .6rem">Μέση</th><th style="padding:.4rem .6rem">Γοφοί</th></tr></thead>
+              <tbody>
+                <tr><td style="padding:.4rem .6rem">XS</td><td style="padding:.4rem .6rem;text-align:center">80-82</td><td style="padding:.4rem .6rem;text-align:center">60-62</td><td style="padding:.4rem .6rem;text-align:center">86-88</td></tr>
+                <tr style="background:rgba(0,0,0,.03)"><td style="padding:.4rem .6rem">S</td><td style="padding:.4rem .6rem;text-align:center">84-86</td><td style="padding:.4rem .6rem;text-align:center">64-66</td><td style="padding:.4rem .6rem;text-align:center">90-92</td></tr>
+                <tr><td style="padding:.4rem .6rem">M</td><td style="padding:.4rem .6rem;text-align:center">88-90</td><td style="padding:.4rem .6rem;text-align:center">68-70</td><td style="padding:.4rem .6rem;text-align:center">94-96</td></tr>
+                <tr style="background:rgba(0,0,0,.03)"><td style="padding:.4rem .6rem">L</td><td style="padding:.4rem .6rem;text-align:center">92-96</td><td style="padding:.4rem .6rem;text-align:center">72-76</td><td style="padding:.4rem .6rem;text-align:center">98-102</td></tr>
+                <tr><td style="padding:.4rem .6rem">XL</td><td style="padding:.4rem .6rem;text-align:center">100-104</td><td style="padding:.4rem .6rem;text-align:center">80-84</td><td style="padding:.4rem .6rem;text-align:center">106-110</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc('shipBody',this)">
+          Αποστολή & Επιστροφές <span class="acc-icon">+</span>
+        </div>
+        <div class="acc-body" id="shipBody">
+          <div class="acc-body-inner">
+            <ul>
+              <li>Δωρεάν αποστολή για παραγγελίες άνω των 49€</li>
+              <li>ACS / ELTA / Speedex — 1-3 εργάσιμες ημέρες</li>
+              <li>Αποστολή εντός 24 ωρών από επιβεβαίωση</li>
+              <li>14 ημέρες δικαίωμα επιστροφής</li>
+              <li>Αχρησιμοποίητο προϊόν με ετικέτες</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Related Products -->
+<section class="related">
+  <h2>Μπορεί επίσης να σας αρέσει</h2>
+  <div class="related-grid" id="relatedGrid"></div>
+</section>
+
+<!-- Toast -->
+<div class="toast2" id="toast2"><div class="toast2-dot"></div><span id="toastTxt"></span></div>
+
+<script src="js/config.js"></script>
+<script src="js/store.js"></script>
+<script>
+// ── Cursor ────────────────────────────────────────────────────
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+let mx=0,my=0,fx=0,fy=0;
+if(cur){
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.transform=`translate(${mx-3}px,${my-3}px)`});
+  (function loop(){fx+=(mx-fx)*.1;fy+=(my-fy)*.1;curR.style.transform=`translate(${fx-16}px,${fy-16}px)`;requestAnimationFrame(loop)})();
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cur.classList.add('h');curR.classList.add('h')});
+    el.addEventListener('mouseleave',()=>{cur.classList.remove('h');curR.classList.remove('h')});
+  });
+}
+
+// ── Load Product ──────────────────────────────────────────────
+const params = new URLSearchParams(location.search);
+const productId = parseInt(params.get('id')) || 1;
+const product = Store.getProduct(productId);
+let selectedSize = null;
+let selectedColor = null;
+let qty = 1;
+
+if(!product) {
+  document.getElementById('productPage').innerHTML = `<div style="text-align:center;padding:4rem;grid-column:1/-1"><h2 style="font-family:var(--serif);font-style:italic">Το προϊόν δεν βρέθηκε</h2><br><a href="index.html" style="color:var(--rose)">← Πίσω στο κατάστημα</a></div>`;
+} else {
+  renderProduct(product);
+  renderRelated(product);
+}
+
+function renderProduct(p) {
+  document.title = p.name + ' — LUMIÈRE';
+  document.getElementById('pageTitle').textContent = p.name + ' — LUMIÈRE';
+  document.getElementById('pBrand').textContent = p.brand;
+  document.getElementById('pName').textContent = p.name;
+  document.getElementById('pSku').textContent = 'Κωδικός: ' + p.sku;
+  document.getElementById('bcName').textContent = p.name;
+  document.getElementById('bcCategory').textContent = {foremata:'Φορέματα',blouzes:'Μπλούζες',pantelonia:'Παντελόνια',aksesuar:'Αξεσουάρ'}[p.category]||p.category;
+
+  // Rating
+  document.getElementById('pRating').innerHTML =
+    [...Array(5)].map((_,i)=>`<span class="star ${i<p.rating?'on':''}">★</span>`).join('') +
+    `<span>(${p.reviews||0} αξιολογήσεις)</span>`;
+
+  // Price
+  const fmt = n => n.toFixed(2).replace('.',',')+'€';
+  const savePct = p.oldPrice ? Math.round((1-p.price/p.oldPrice)*100) : 0;
+  document.getElementById('pPrice').innerHTML = `
+    <span class="p-price-main ${p.oldPrice?'sale':''}">${fmt(p.price)}</span>
+    ${p.oldPrice?`<span class="p-price-old">${fmt(p.oldPrice)}</span><span class="p-price-save">-${savePct}%</span>`:''}`;
+
+  // Gallery
+  const mainEl = document.getElementById('galleryMain');
+  mainEl.innerHTML = `<div class="g-emoji">${p.emoji}</div>`;
+  document.getElementById('galleryThumbs').innerHTML =
+    [...Array(4)].map((_,i)=>`<div class="g-thumb ${i===0?'active':''}">${p.emoji}</div>`).join('');
+
+  // Colors
+  if(p.colors && p.colors.length) {
+    selectedColor = p.colors[0];
+    document.getElementById('selectedColor').textContent = selectedColor;
+    document.getElementById('colorOpts').innerHTML = p.colors.map((c,i)=>`
+      <button class="color-opt ${i===0?'sel':''}" onclick="selectColor('${c}',this)">${c}</button>`).join('');
+  } else {
+    document.getElementById('colorSection').style.display='none';
+  }
+
+  // Sizes
+  if(p.sizes && p.sizes.length) {
+    selectedSize = p.sizes[0];
+    document.getElementById('sizeOpts').innerHTML = p.sizes.map((s,i)=>`
+      <button class="size-opt ${i===0?'sel':''}" onclick="selectSize('${s}',this)">${s}</button>`).join('');
+  } else {
+    document.getElementById('sizeSection').style.display='none';
+  }
+
+  // Description
+  document.getElementById('pDesc').innerHTML = p.description||'';
+
+  // Wishlist
+  if(Store.isWishlisted(p.id)) document.getElementById('wishBtn').classList.add('on');
+
+  // Update cart count
+  const cart = JSON.parse(localStorage.getItem('lum_cart')||'[]');
+  document.getElementById('cartDot').textContent = cart.reduce((s,i)=>s+i.qty,0);
+}
+
+function selectColor(c, btn) {
+  selectedColor = c;
+  document.getElementById('selectedColor').textContent = c;
+  document.querySelectorAll('.color-opt').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+
+function selectSize(s, btn) {
+  selectedSize = s;
+  document.querySelectorAll('.size-opt').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+
+function changeQty(d) {
+  qty = Math.max(1, qty + d);
+  document.getElementById('qtyNum').textContent = qty;
+}
+
+function addToCart() {
+  if(product.sizes && !selectedSize) { showToast('⚠️ Επιλέξτε μέγεθος'); return; }
+  let cart = JSON.parse(localStorage.getItem('lum_cart')||'[]');
+  const key = product.id + '-' + (selectedSize||'one');
+  const ex = cart.find(x=>x.key===key);
+  if(ex) ex.qty += qty;
+  else cart.push({ ...product, key, qty, size:selectedSize||'-', color:selectedColor||'' });
+  localStorage.setItem('lum_cart', JSON.stringify(cart));
+  document.getElementById('cartDot').textContent = cart.reduce((s,i)=>s+i.qty,0);
+  showToast(`${product.emoji} ${product.name.split(' ').slice(0,3).join(' ')} προστέθηκε!`);
+}
+
+function toggleWish() {
+  const added = Store.toggleWishlist(product.id);
+  document.getElementById('wishBtn').classList.toggle('on', added);
+  showToast(added ? '❤️ Αποθηκεύτηκε στα αγαπημένα' : '💔 Αφαιρέθηκε');
+}
+
+function toggleAcc(bodyId, head) {
+  const body = document.getElementById(bodyId);
+  const isOpen = body.classList.contains('on');
+  document.querySelectorAll('.acc-body').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.acc-head').forEach(h=>h.classList.remove('open'));
+  if(!isOpen){ body.classList.add('on'); head.classList.add('open'); }
+}
+
+function renderRelated(p) {
+  const related = Store.getActiveProducts().filter(x=>x.category===p.category && x.id!==p.id).slice(0,4);
+  if(!related.length){ document.querySelector('.related').style.display='none'; return; }
+  const fmt = n => n.toFixed(2).replace('.',',')+'€';
+  document.getElementById('relatedGrid').innerHTML = related.map(r=>`
+    <a href="product.html?id=${r.id}" style="text-decoration:none;color:var(--ink)">
+      <div style="aspect-ratio:3/4;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:4rem;margin-bottom:.8rem;overflow:hidden;transition:transform .4s" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform=''">${r.emoji}</div>
+      <div style="font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.2rem">${r.brand}</div>
+      <div style="font-family:var(--serif);font-style:italic;font-size:.95rem;margin-bottom:.3rem">${r.name}</div>
+      <div style="font-size:.9rem;color:${r.oldPrice?'var(--rose)':'var(--ink)'}">${fmt(r.price)}</div>
+    </a>`).join('');
+}
+
+let tTimer;
+function showToast(msg){
+  const t=document.getElementById('toast2');
+  document.getElementById('toastTxt').textContent=msg;
+  t.classList.add('on');
+  clearTimeout(tTimer);
+  tTimer=setTimeout(()=>t.classList.remove('on'),3000);
+}
+
+document.getElementById('cartBtn').onclick=()=>location.href='checkout.html';
+</script>
+</body>
+</html>
