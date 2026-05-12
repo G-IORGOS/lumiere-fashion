@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LUMIÈRE Admin — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,300;1,6..96,300&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f7f5f2;--white:#ffffff;--ink:#111110;--muted:#888880;
+  --border:#e4e0d8;--rose:#c4856a;--rose-lt:rgba(196,133,106,.12);
+  --green:#4a8c6f;--green-lt:rgba(74,140,111,.12);
+  --blue:#4a7abf;--blue-lt:rgba(74,122,191,.12);
+  --yellow:#c9a03a;--yellow-lt:rgba(201,160,58,.12);
+  --red:#bf4a4a;--red-lt:rgba(191,74,74,.12);
+  --sidebar:220px;
+  --serif:'Bodoni Moda',Georgia,serif;
+  --sans:'Jost',sans-serif;
+}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);min-height:100vh;display:flex}
+
+/* ── Sidebar ── */
+.sidebar{width:var(--sidebar);background:var(--ink);min-height:100vh;display:flex;flex-direction:column;position:fixed;top:0;left:0;z-index:100}
+.sidebar-logo{padding:1.8rem 1.5rem 1.5rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.sidebar-logo a{font-family:var(--serif);font-size:1.5rem;font-style:italic;color:#fff;text-decoration:none;font-weight:300}
+.sidebar-logo span{color:var(--rose)}
+.sidebar-sub{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:.3rem}
+.sidebar-nav{flex:1;padding:1.2rem 0}
+.nav-section{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.25);padding:.8rem 1.5rem .4rem;margin-top:.5rem}
+.nav-item{display:flex;align-items:center;gap:.8rem;padding:.7rem 1.5rem;font-size:.82rem;color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s;text-decoration:none;border-left:2px solid transparent}
+.nav-item:hover{color:#fff;background:rgba(255,255,255,.05)}
+.nav-item.active{color:#fff;border-left-color:var(--rose);background:rgba(196,133,106,.1)}
+.nav-item .ni{font-size:1rem;width:20px;text-align:center}
+.nav-badge{margin-left:auto;background:var(--rose);color:#fff;font-size:.6rem;padding:.15rem .5rem;border-radius:10px}
+.sidebar-footer{padding:1.2rem 1.5rem;border-top:1px solid rgba(255,255,255,.08)}
+.sidebar-user{display:flex;align-items:center;gap:.8rem}
+.su-avatar{width:32px;height:32px;background:var(--rose);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:#fff;font-weight:600;flex-shrink:0}
+.su-info{flex:1}
+.su-name{font-size:.8rem;color:#fff;font-weight:500}
+.su-role{font-size:.62rem;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.1em}
+
+/* ── Main ── */
+.main{margin-left:var(--sidebar);flex:1;display:flex;flex-direction:column;min-height:100vh}
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.tb-left{display:flex;align-items:center;gap:1rem}
+.page-title{font-size:1rem;font-weight:600}
+.tb-right{display:flex;align-items:center;gap:1rem}
+.tb-btn{background:var(--ink);color:#fff;border:none;padding:.5rem 1.1rem;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;font-family:var(--sans);transition:background .2s;display:flex;align-items:center;gap:.4rem}
+.tb-btn:hover{background:var(--rose)}
+.tb-btn.outline{background:none;color:var(--ink);border:1px solid var(--border)}
+.tb-btn.outline:hover{background:var(--bg);color:var(--rose);border-color:var(--rose)}
+.content{flex:1;padding:2rem}
+
+/* ── Stats Grid ── */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-bottom:2rem}
+.stat-card{background:var(--white);border:1px solid var(--border);padding:1.5rem;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%}
+.stat-card.rose::before{background:var(--rose)}
+.stat-card.green::before{background:var(--green)}
+.stat-card.blue::before{background:var(--blue)}
+.stat-card.yellow::before{background:var(--yellow)}
+.stat-label{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem}
+.stat-value{font-family:var(--serif);font-size:2rem;font-weight:300;font-style:italic;line-height:1}
+.stat-sub{font-size:.72rem;color:var(--muted);margin-top:.4rem}
+.stat-icon{position:absolute;top:1rem;right:1.2rem;font-size:1.8rem;opacity:.15}
+
+/* ── Table Section ── */
+.section-card{background:var(--white);border:1px solid var(--border);margin-bottom:1.5rem}
+.section-head{padding:1.2rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem}
+.section-head h3{font-size:.9rem;font-weight:600;letter-spacing:.02em}
+.section-actions{display:flex;align-items:center;gap:.6rem}
+.search-input{border:1px solid var(--border);background:var(--bg);font-family:var(--sans);font-size:.8rem;padding:.4rem .8rem;outline:none;color:var(--ink);width:200px}
+.search-input:focus{border-color:var(--rose)}
+.filter-sel{border:1px solid var(--border);background:var(--bg);font-family:var(--sans);font-size:.78rem;padding:.4rem .7rem;outline:none;color:var(--ink);cursor:pointer}
+.export-btn{background:none;border:1px solid var(--border);font-family:var(--sans);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:.4rem .9rem;cursor:pointer;transition:all .2s;color:var(--muted)}
+.export-btn:hover{background:var(--green);color:#fff;border-color:var(--green)}
+
+/* ── Table ── */
+.data-table{width:100%;border-collapse:collapse}
+.data-table th{background:var(--bg);font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);font-weight:500;padding:.7rem 1rem;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap}
+.data-table td{padding:.75rem 1rem;font-size:.82rem;border-bottom:1px solid var(--border);color:var(--ink);vertical-align:middle}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:var(--bg)}
+.data-table .mono{font-family:monospace;font-size:.75rem;color:var(--muted)}
+.empty-state{text-align:center;padding:3rem;color:var(--muted);font-size:.85rem}
+.empty-icon{font-size:2rem;margin-bottom:.8rem;display:block;opacity:.4}
+
+/* ── Status Badges ── */
+.badge{display:inline-block;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;padding:.25rem .65rem;border-radius:2px;font-weight:500}
+.badge-placed{background:var(--blue-lt);color:var(--blue)}
+.badge-paid{background:var(--green-lt);color:var(--green)}
+.badge-delivered{background:var(--green-lt);color:var(--green)}
+.badge-processing{background:var(--yellow-lt);color:var(--yellow)}
+.badge-shipped{background:var(--blue-lt);color:var(--blue)}
+.badge-cancelled{background:var(--red-lt);color:var(--red)}
+.badge-refunded{background:rgba(100,100,100,.1);color:#666}
+.badge-draft{background:rgba(100,100,100,.1);color:#888}
+
+/* ── Tabs ── */
+.tab-nav{display:flex;gap:0;border-bottom:1px solid var(--border);padding:0 1.5rem}
+.tab-btn{padding:.8rem 1.2rem;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;color:var(--muted);font-family:var(--sans);transition:all .2s;margin-bottom:-1px}
+.tab-btn.active,.tab-btn:hover{color:var(--rose);border-bottom-color:var(--rose)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* ── Action buttons in table ── */
+.tbl-btn{background:none;border:1px solid var(--border);font-size:.65rem;padding:.25rem .6rem;cursor:pointer;font-family:var(--sans);transition:all .2s;color:var(--muted)}
+.tbl-btn:hover{background:var(--rose);color:#fff;border-color:var(--rose)}
+.tbl-btn.del:hover{background:var(--red);border-color:var(--red)}
+
+/* ── Chart Area ── */
+.chart-area{padding:1.5rem;min-height:200px;display:flex;align-items:flex-end;gap:6px}
+.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:.4rem}
+.bar{width:100%;background:var(--rose-lt);border-top:2px solid var(--rose);transition:height .5s var(--ease,ease);min-height:4px;cursor:pointer;position:relative}
+.bar:hover{background:rgba(196,133,106,.25)}
+.bar-label{font-size:.6rem;color:var(--muted);text-align:center;letter-spacing:.05em}
+.bar-val{font-size:.65rem;font-weight:600;color:var(--rose);text-align:center}
+
+/* ── Notification dot ── */
+.notif{width:8px;height:8px;background:var(--rose);border-radius:50%;display:inline-block;margin-left:.4rem}
+
+/* ── Order detail modal ── */
+.detail-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s;display:flex;align-items:center;justify-content:center;padding:1rem}
+.detail-overlay.on{opacity:1;pointer-events:all}
+.detail-box{background:var(--white);width:100%;max-width:560px;max-height:85vh;overflow-y:auto}
+.detail-head{padding:1.5rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--white)}
+.detail-close{background:none;border:none;cursor:pointer;font-size:1.1rem;color:var(--muted)}
+.detail-body{padding:1.5rem}
+.detail-row{display:flex;justify-content:space-between;font-size:.82rem;padding:.4rem 0;border-bottom:1px solid var(--border)}
+.detail-row:last-child{border-bottom:none}
+.detail-row span:first-child{color:var(--muted)}
+.detail-section{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:1.2rem 0 .6rem}
+
+@media(max-width:1024px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%)}.main{margin-left:0}
+  .stats-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <a href="fashion-eshop.html">Lumière<span>.</span></a>
+    <div class="sidebar-sub">Admin Panel</div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section">Κύριο Μενού</div>
+    <a class="nav-item active" onclick="showPage('dashboard',this)"><span class="ni">📊</span> Dashboard</a>
+    <a class="nav-item" onclick="showPage('orders',this)"><span class="ni">🛍</span> Παραγγελίες <span class="nav-badge" id="orderBadge">0</span></a>
+    <a class="nav-item" onclick="showPage('customers',this)"><span class="ni">👤</span> Πελάτες</a>
+    <a class="nav-item" onclick="showPage('newsletter',this)"><span class="ni">📧</span> Newsletter</a>
+    <div class="nav-section">Κατάστημα</div>
+    <a class="nav-item" href="fashion-eshop.html" target="_blank"><span class="ni">🌐</span> Προβολή Site ↗</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="su-avatar">GI</div>
+      <div class="su-info">
+        <div class="su-name">Γιώργος Ι.</div>
+        <div class="su-role">Admin</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- Main -->
+<div class="main">
+  <div class="topbar">
+    <div class="tb-left">
+      <span class="page-title" id="pageTitle">Dashboard</span>
+    </div>
+    <div class="tb-right">
+      <button class="tb-btn outline" onclick="clearAllData()">🗑 Καθαρισμός</button>
+      <button class="tb-btn" onclick="addSampleData()">+ Demo Δεδομένα</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ── DASHBOARD ── -->
+    <div id="page-dashboard" class="tab-content active">
+      <div class="stats-grid">
+        <div class="stat-card rose">
+          <div class="stat-label">Συνολικές Παραγγελίες</div>
+          <div class="stat-value" id="statOrders">0</div>
+          <div class="stat-sub" id="statOrdersSub">Σύνολο παραγγελιών</div>
+          <div class="stat-icon">🛍</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-label">Έσοδα</div>
+          <div class="stat-value" id="statRevenue">0€</div>
+          <div class="stat-sub" id="statRevenueSub">Ολοκληρωμένες</div>
+          <div class="stat-icon">💶</div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-label">Πελάτες</div>
+          <div class="stat-value" id="statCustomers">0</div>
+          <div class="stat-sub">Εγγεγραμμένοι</div>
+          <div class="stat-icon">👤</div>
+        </div>
+        <div class="stat-card yellow">
+          <div class="stat-label">Newsletter</div>
+          <div class="stat-value" id="statNewsletter">0</div>
+          <div class="stat-sub">Συνδρομητές</div>
+          <div class="stat-icon">📧</div>
+        </div>
+      </div>
+
+      <!-- Revenue Chart -->
+      <div class="section-card">
+        <div class="section-head">
+          <h3>Έσοδα ανά Παραγγελία</h3>
+          <span style="font-size:.72rem;color:var(--muted)">Τελευταίες παραγγελίες</span>
+        </div>
+        <div class="chart-area" id="revenueChart">
+          <div class="empty-state" style="width:100%"><span class="empty-icon">📊</span>Δεν υπάρχουν δεδομένα ακόμα</div>
+        </div>
+      </div>
+
+      <!-- Recent Orders -->
+      <div class="section-card">
+        <div class="section-head">
+          <h3>Πρόσφατες Παραγγελίες</h3>
+          <button class="export-btn" onclick="showPage('orders',document.querySelector('.nav-item:nth-child(3))'))">Όλες →</button>
+        </div>
+        <div id="recentOrdersTable"></div>
+      </div>
+    </div>
+
+    <!-- ── ORDERS ── -->
+    <div id="page-orders" class="tab-content">
+      <div class="section-card">
+        <div class="section-head">
+          <h3>Παραγγελίες <span id="ordersCount" style="font-weight:300;color:var(--muted)"></span></h3>
+          <div class="section-actions">
+            <input class="search-input" id="orderSearch" placeholder="Αναζήτηση..." oninput="renderOrders()"/>
+            <select class="filter-sel" id="orderFilter" onchange="renderOrders()">
+              <option value="">Όλες</option>
+              <option value="Placed">Placed</option>
+              <option value="Paid">Paid</option>
+              <option value="Processing">Processing</option>
+              <option value="Shipped">Shipped</option>
+              <option value="Delivered">Delivered</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+            <button class="export-btn" onclick="exportCSV('orders')">⬇ CSV</button>
+          </div>
+        </div>
+        <div id="ordersTable"></div>
+      </div>
+    </div>
+
+    <!-- ── CUSTOMERS ── -->
+    <div id="page-customers" class="tab-content">
+      <div class="section-card">
+        <div class="section-head">
+          <h3>Πελάτες <span id="customersCount" style="font-weight:300;color:var(--muted)"></span></h3>
+          <div class="section-actions">
+            <input class="search-input" id="customerSearch" placeholder="Αναζήτηση..." oninput="renderCustomers()"/>
+            <button class="export-btn" onclick="exportCSV('customers')">⬇ CSV</button>
+          </div>
+        </div>
+        <div id="customersTable"></div>
+      </div>
+    </div>
+
+    <!-- ── NEWSLETTER ── -->
+    <div id="page-newsletter" class="tab-content">
+      <div class="section-card">
+        <div class="section-head">
+          <h3>Newsletter Συνδρομητές <span id="nlCount" style="font-weight:300;color:var(--muted)"></span></h3>
+          <div class="section-actions">
+            <button class="export-btn" onclick="exportCSV('newsletter')">⬇ CSV</button>
+          </div>
+        </div>
+        <div id="newsletterTable"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Order Detail Modal -->
+<div class="detail-overlay" id="detailOverlay" onclick="if(event.target===this)closeDetail()">
+  <div class="detail-box">
+    <div class="detail-head">
+      <div>
+        <div style="font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem">Λεπτομέρειες</div>
+        <h3 style="font-size:1rem;font-weight:600" id="detailTitle">Παραγγελία</h3>
+      </div>
+      <button class="detail-close" onclick="closeDetail()">✕</button>
+    </div>
+    <div class="detail-body" id="detailBody"></div>
+  </div>
+</div>
+
+<script>
+// ── Data helpers ──────────────────────────────────────
+function loadData(key) {
+  try { return JSON.parse(localStorage.getItem(key)) || []; } catch(e) { return []; }
+}
+function saveData(key, data) {
+  try { localStorage.setItem(key, JSON.stringify(data)); } catch(e) {}
+}
+
+// ── Navigation ────────────────────────────────────────
+function showPage(page, el) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  if (el) el.classList.add('active');
+  document.getElementById('pageTitle').textContent = {
+    dashboard: 'Dashboard', orders: 'Παραγγελίες',
+    customers: 'Πελάτες', newsletter: 'Newsletter'
+  }[page];
+  if (page === 'orders') renderOrders();
+  if (page === 'customers') renderCustomers();
+  if (page === 'newsletter') renderNewsletter();
+}
+
+// ── Status badge ──────────────────────────────────────
+function statusBadge(s) {
+  const map = { Placed:'placed', Paid:'paid', Processing:'processing', Shipped:'shipped',
+    Delivered:'delivered', Cancelled:'cancelled', Refunded:'refunded', Draft:'draft' };
+  return `<span class="badge badge-${map[s]||'draft'}">${s||'Draft'}</span>`;
+}
+
+// ── Payment method icon ───────────────────────────────
+function pmIcon(pm) {
+  const icons = { 'Κάρτα':'💳', 'PayPal':'🅿️', 'Αντικαταβολή':'💵', 'Apple Pay':'' };
+  return (icons[pm] || '💳') + ' ' + (pm || '—');
+}
+
+// ── Dashboard ─────────────────────────────────────────
+function renderDashboard() {
+  const orders = loadData('lumiere_orders');
+  const customers = loadData('lumiere_customers');
+  const newsletters = loadData('lumiere_newsletters');
+  const revenue = orders.reduce((s,o) => s + parseFloat(o.total || 0), 0);
+
+  document.getElementById('statOrders').textContent = orders.length;
+  document.getElementById('statRevenue').textContent = revenue.toFixed(2) + '€';
+  document.getElementById('statCustomers').textContent = customers.length;
+  document.getElementById('statNewsletter').textContent = newsletters.length;
+  document.getElementById('orderBadge').textContent = orders.length;
+
+  // Chart
+  const chartEl = document.getElementById('revenueChart');
+  if (!orders.length) {
+    chartEl.innerHTML = '<div class="empty-state" style="width:100%"><span class="empty-icon">📊</span>Δεν υπάρχουν δεδομένα ακόμα</div>';
+  } else {
+    const last10 = orders.slice(-10);
+    const max = Math.max(...last10.map(o => parseFloat(o.total)));
+    chartEl.innerHTML = last10.map(o => {
+      const pct = max > 0 ? (parseFloat(o.total) / max * 100) : 0;
+      return `<div class="bar-wrap">
+        <div class="bar-val">${parseFloat(o.total).toFixed(0)}€</div>
+        <div class="bar" style="height:${Math.max(pct, 4)}px" title="${o.id}"></div>
+        <div class="bar-label">${o.id.replace('ORD-','')}</div>
+      </div>`;
+    }).join('');
+  }
+
+  // Recent orders table
+  const recent = [...orders].reverse().slice(0, 5);
+  const rtEl = document.getElementById('recentOrdersTable');
+  if (!recent.length) {
+    rtEl.innerHTML = '<div class="empty-state"><span class="empty-icon">🛍</span>Δεν υπάρχουν παραγγελίες ακόμα.<br>Κάνε μια δοκιμαστική παραγγελία από το shop!</div>';
+  } else {
+    rtEl.innerHTML = `<table class="data-table"><thead><tr>
+      <th>Order #</th><th>Πελάτης</th><th>Ημερομηνία</th><th>Status</th><th>Σύνολο</th><th>Πληρωμή</th>
+    </tr></thead><tbody>${recent.map(o => `<tr>
+      <td><span class="mono">${o.id}</span></td>
+      <td><strong>${o.customer?.name||'—'}</strong><br><small style="color:var(--muted)">${o.customer?.email||''}</small></td>
+      <td style="color:var(--muted);font-size:.78rem">${formatDate(o.date)}</td>
+      <td>${statusBadge(o.status)}</td>
+      <td><strong style="color:var(--rose)">${parseFloat(o.total).toFixed(2)}€</strong></td>
+      <td style="font-size:.78rem">${pmIcon(o.paymentMethod)}</td>
+    </tr>`).join('')}</tbody></table>`;
+  }
+}
+
+// ── Orders ────────────────────────────────────────────
+function renderOrders() {
+  const orders = loadData('lumiere_orders');
+  const q = (document.getElementById('orderSearch')?.value || '').toLowerCase();
+  const f = document.getElementById('orderFilter')?.value || '';
+  let list = [...orders].reverse();
+  if (q) list = list.filter(o => o.id?.toLowerCase().includes(q) || o.customer?.name?.toLowerCase().includes(q) || o.customer?.email?.toLowerCase().includes(q));
+  if (f) list = list.filter(o => o.status === f);
+  document.getElementById('ordersCount').textContent = `(${list.length})`;
+  const el = document.getElementById('ordersTable');
+  if (!list.length) {
+    el.innerHTML = '<div class="empty-state"><span class="empty-icon">🛍</span>Δεν βρέθηκαν παραγγελίες</div>';
+    return;
+  }
+  el.innerHTML = `<div style="overflow-x:auto"><table class="data-table"><thead><tr>
+    <th>Order #</th><th>Ημερομηνία</th><th>Πελάτης</th><th>Status</th><th>Πληρωμή</th><th>Νόμισμα</th><th>Υποσύνολο</th><th>Μεταφ.</th><th>ΦΠΑ</th><th>Σύνολο</th><th></th>
+  </tr></thead><tbody>${list.map(o => `<tr>
+    <td><span class="mono">${o.id}</span></td>
+    <td style="color:var(--muted);font-size:.75rem;white-space:nowrap">${formatDate(o.date)}</td>
+    <td><strong style="font-size:.82rem">${o.customer?.name||'—'}</strong><br><small style="color:var(--muted);font-size:.7rem">${o.customer?.email||''}</small></td>
+    <td>
+      <select class="filter-sel" style="font-size:.68rem;padding:.2rem .5rem" onchange="updateOrderStatus('${o.id}',this.value)">
+        ${['Placed','Paid','Processing','Shipped','Delivered','Cancelled','Refunded'].map(s=>`<option ${o.status===s?'selected':''}>${s}</option>`).join('')}
+      </select>
+    </td>
+    <td style="font-size:.78rem">${pmIcon(o.paymentMethod)}</td>
+    <td><span class="badge" style="background:var(--blue-lt);color:var(--blue)">${o.currency||'EUR'}</span></td>
+    <td>${parseFloat(o.subtotal).toFixed(2)}€</td>
+    <td>${parseFloat(o.shippingCost||0).toFixed(2)}€</td>
+    <td>${parseFloat(o.tax||0).toFixed(2)}€</td>
+    <td><strong style="color:var(--rose)">${parseFloat(o.total).toFixed(2)}€</strong></td>
+    <td><button class="tbl-btn" onclick="viewOrder('${o.id}')">Λεπτ.</button></td>
+  </tr>`).join('')}</tbody></table></div>`;
+}
+
+function updateOrderStatus(id, status) {
+  const orders = loadData('lumiere_orders');
+  const o = orders.find(x => x.id === id);
+  if (o) { o.status = status; saveData('lumiere_orders', orders); renderDashboard(); }
+}
+
+function viewOrder(id) {
+  const o = loadData('lumiere_orders').find(x => x.id === id);
+  if (!o) return;
+  document.getElementById('detailTitle').textContent = o.id;
+  document.getElementById('detailBody').innerHTML = `
+    <div class="detail-section">Πελάτης</div>
+    <div class="detail-row"><span>Όνομα</span><span>${o.customer?.name||'—'}</span></div>
+    <div class="detail-row"><span>Email</span><span>${o.customer?.email||'—'}</span></div>
+    <div class="detail-row"><span>Τηλέφωνο</span><span>${o.customer?.phone||'—'}</span></div>
+    <div class="detail-section">Παράδοση</div>
+    <div class="detail-row"><span>Διεύθυνση</span><span>${o.shipping?.address||'—'}</span></div>
+    <div class="detail-row"><span>Πόλη</span><span>${o.shipping?.city||'—'} ${o.shipping?.zip||''}</span></div>
+    ${o.shipping?.notes ? `<div class="detail-row"><span>Σχόλια</span><span>${o.shipping.notes}</span></div>` : ''}
+    <div class="detail-section">Προϊόντα</div>
+    ${(o.items||[]).map(i=>`<div class="detail-row"><span>${i.name} (${i.size||'-'}) ×${i.qty}</span><span>${(i.price*i.qty).toFixed(2)}€</span></div>`).join('')}
+    <div class="detail-section">Σύνοψη</div>
+    <div class="detail-row"><span>Υποσύνολο</span><span>${parseFloat(o.subtotal).toFixed(2)}€</span></div>
+    <div class="detail-row"><span>Μεταφορικά</span><span>${parseFloat(o.shippingCost||0).toFixed(2)}€</span></div>
+    <div class="detail-row"><span>ΦΠΑ (24%)</span><span>${parseFloat(o.tax||0).toFixed(2)}€</span></div>
+    <div class="detail-row" style="font-weight:600"><span>Σύνολο</span><span style="color:var(--rose)">${parseFloat(o.total).toFixed(2)}€</span></div>
+    <div class="detail-row"><span>Πληρωμή</span><span>${pmIcon(o.paymentMethod)}</span></div>
+    <div class="detail-row"><span>Ημερομηνία</span><span>${formatDate(o.date)}</span></div>
+  `;
+  document.getElementById('detailOverlay').classList.add('on');
+}
+function closeDetail() { document.getElementById('detailOverlay').classList.remove('on'); }
+
+// ── Customers ─────────────────────────────────────────
+function renderCustomers() {
+  const customers = loadData('lumiere_customers');
+  const q = (document.getElementById('customerSearch')?.value || '').toLowerCase();
+  let list = q ? customers.filter(c => c.name?.toLowerCase().includes(q) || c.email?.toLowerCase().includes(q)) : customers;
+  document.getElementById('customersCount').textContent = `(${list.length})`;
+  const el = document.getElementById('customersTable');
+  if (!list.length) {
+    el.innerHTML = '<div class="empty-state"><span class="empty-icon">👤</span>Δεν υπάρχουν πελάτες ακόμα</div>';
+    return;
+  }
+  el.innerHTML = `<div style="overflow-x:auto"><table class="data-table"><thead><tr>
+    <th>Όνομα</th><th>Email</th><th>Τηλέφωνο</th><th>Πόλη</th><th>Εγγραφή</th><th>Παραγγελίες</th><th>Σύνολο Αγορών</th>
+  </tr></thead><tbody>${list.map(c => `<tr>
+    <td><strong>${c.name||'—'}</strong></td>
+    <td style="color:var(--muted)">${c.email||'—'}</td>
+    <td style="font-size:.78rem">${c.phone||'—'}</td>
+    <td style="font-size:.78rem">${c.city||'—'}</td>
+    <td style="color:var(--muted);font-size:.75rem">${formatDate(c.registeredDate)}</td>
+    <td><span class="badge" style="background:var(--blue-lt);color:var(--blue)">${c.totalOrders||0}</span></td>
+    <td><strong style="color:var(--rose)">${parseFloat(c.totalSpent||0).toFixed(2)}€</strong></td>
+  </tr>`).join('')}</tbody></table></div>`;
+}
+
+// ── Newsletter ────────────────────────────────────────
+function renderNewsletter() {
+  const subs = loadData('lumiere_newsletters');
+  document.getElementById('nlCount').textContent = `(${subs.length})`;
+  const el = document.getElementById('newsletterTable');
+  if (!subs.length) {
+    el.innerHTML = '<div class="empty-state"><span class="empty-icon">📧</span>Δεν υπάρχουν συνδρομητές ακόμα</div>';
+    return;
+  }
+  el.innerHTML = `<table class="data-table"><thead><tr>
+    <th>#</th><th>Email</th><th>Ημερομηνία Εγγραφής</th><th>ID</th>
+  </tr></thead><tbody>${subs.map((s,i) => `<tr>
+    <td style="color:var(--muted)">${i+1}</td>
+    <td><strong>${s.email}</strong></td>
+    <td style="color:var(--muted);font-size:.78rem">${formatDate(s.date)}</td>
+    <td class="mono">${s.id||'—'}</td>
+  </tr>`).join('')}</tbody></table>`;
+}
+
+// ── Export CSV ────────────────────────────────────────
+function exportCSV(type) {
+  let data, filename, headers;
+  if (type === 'orders') {
+    data = loadData('lumiere_orders');
+    headers = ['Order ID','Date','Customer Name','Email','Phone','Address','City','ZIP','Status','Payment','Subtotal','Shipping','Tax','Total','Currency'];
+    const rows = data.map(o => [o.id, formatDate(o.date), o.customer?.name, o.customer?.email, o.customer?.phone, o.shipping?.address, o.shipping?.city, o.shipping?.zip, o.status, o.paymentMethod, o.subtotal, o.shippingCost, o.tax, o.total, o.currency]);
+    filename = 'lumiere-orders.csv';
+    downloadCSV(headers, rows, filename);
+  } else if (type === 'customers') {
+    data = loadData('lumiere_customers');
+    headers = ['Name','Email','Phone','City','ZIP','Registered','Total Orders','Total Spent'];
+    const rows = data.map(c => [c.name, c.email, c.phone, c.city, c.zip, formatDate(c.registeredDate), c.totalOrders, c.totalSpent]);
+    downloadCSV(headers, rows, 'lumiere-customers.csv');
+  } else if (type === 'newsletter') {
+    data = loadData('lumiere_newsletters');
+    headers = ['Email','Date','ID'];
+    const rows = data.map(s => [s.email, formatDate(s.date), s.id]);
+    downloadCSV(headers, rows, 'lumiere-newsletter.csv');
+  }
+}
+
+function downloadCSV(headers, rows, filename) {
+  const csv = [headers, ...rows].map(r => r.map(v => '"'+(v||'').toString().replace(/"/g,'""')+'"').join(',')).join('\n');
+  const blob = new Blob(['\ufeff'+csv], {type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ── Helpers ───────────────────────────────────────────
+function formatDate(d) {
+  if (!d) return '—';
+  try {
+    const dt = new Date(d);
+    return dt.toLocaleDateString('el-GR') + ' ' + dt.toLocaleTimeString('el-GR', {hour:'2-digit',minute:'2-digit'});
+  } catch(e) { return d; }
+}
+
+// ── Sample Data ───────────────────────────────────────
+function addSampleData() {
+  const names = [['Γιώργης','Παπαδόπουλος'],['Μαρία','Νικολάου'],['Κώστας','Αντωνίου'],['Ελένη','Γεωργίου'],['Νίκος','Κωνσταντίνου']];
+  const statuses = ['Placed','Paid','Processing','Shipped','Delivered','Cancelled'];
+  const payments = ['Κάρτα','PayPal','Αντικαταβολή','Apple Pay'];
+  const cities = ['Θεσσαλονίκη','Αθήνα','Καβάλα','Λάρισα','Βόλος'];
+  const products = [
+    {name:'Midi Φόρεμα Linen',sku:'FOR-LIN-001',price:89,emoji:'👗'},
+    {name:'Σατέν Μπλούζα',sku:'BLZ-SAT-002',price:45,emoji:'👚'},
+    {name:'Structured Τσάντα',sku:'TSA-STR-004',price:145,emoji:'👜'},
+    {name:'Maxi Floral',sku:'FOR-FLO-005',price:115,emoji:'🌸'},
+  ];
+  let orders = loadData('lumiere_orders');
+  let customers = loadData('lumiere_customers');
+  let newsletters = loadData('lumiere_newsletters');
+
+  for (let i=0; i<5; i++) {
+    const n = names[i];
+    const email = n[0].toLowerCase()+'.'+n[1].toLowerCase()+'@example.com';
+    const prod = products[i % products.length];
+    const qty = Math.ceil(Math.random()*2);
+    const sub = prod.price * qty;
+    const ship = sub >= 49 ? 0 : 4.90;
+    const tax = (sub * 0.24).toFixed(2);
+    const total = (sub + ship).toFixed(2);
+    const orderNum = 'ORD-' + String(orders.length+1).padStart(4,'0');
+    const daysAgo = new Date(); daysAgo.setDate(daysAgo.getDate() - (i*3));
+    orders.push({
+      id: orderNum, orderNumber: orders.length+1,
+      date: daysAgo.toISOString(),
+      status: statuses[i % statuses.length],
+      customer: { name: n[0]+' '+n[1], email, phone: '69'+Math.floor(Math.random()*100000000).toString().padStart(8,'0') },
+      shipping: { address: 'Οδός '+i+', '+Math.ceil(Math.random()*99), city: cities[i], zip: '5'+Math.ceil(Math.random()*9999).toString().padStart(4,'0') },
+      items: [{ ...prod, qty, size: ['XS','S','M','L'][i%4] }],
+      subtotal: sub, shippingCost: ship, tax, total,
+      paymentMethod: payments[i % payments.length], currency: 'EUR'
+    });
+    if (!customers.find(c => c.email === email)) {
+      customers.push({ id:'USR-'+Date.now()+i, name:n[0]+' '+n[1], email, phone:'69'+i+'0000000', city:cities[i], zip:'5'+i+'000', registeredDate:daysAgo.toISOString(), totalOrders:1, totalSpent:parseFloat(total) });
+    }
+    if (!newsletters.find(s => s.email === email)) {
+      newsletters.push({ email, date: daysAgo.toISOString(), id:'NL-'+Date.now()+i });
+    }
+  }
+  saveData('lumiere_orders', orders);
+  saveData('lumiere_customers', customers);
+  saveData('lumiere_newsletters', newsletters);
+  renderDashboard();
+  alert('✅ Demo δεδομένα προστέθηκαν!');
+}
+
+function clearAllData() {
+  if (!confirm('Διαγραφή ΟΛΩΝ των δεδομένων;')) return;
+  localStorage.removeItem('lumiere_orders');
+  localStorage.removeItem('lumiere_customers');
+  localStorage.removeItem('lumiere_newsletters');
+  renderDashboard(); renderOrders(); renderCustomers(); renderNewsletter();
+  alert('🗑 Τα δεδομένα διαγράφηκαν.');
+}
+
+// ── Init ──────────────────────────────────────────────
+renderDashboard();
+</script>
+</body>
+</html>
