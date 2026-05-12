@@ -28,10 +28,6 @@ html{scroll-behavior:smooth}
 body{font-family:var(--sans);background:var(--cream);color:var(--ink);overflow-x:hidden;cursor:auto}
 
 /* Cursor */
-.cur{width:6px;height:6px;background:var(--ink);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transition:transform .1s,background .2s}
-.cur-ring{width:32px;height:32px;border:1px solid rgba(17,17,16,.3);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998}
-.cur.h{transform:translate(-50%,-50%) scale(3);background:var(--rose);opacity:.5}
-.cur-ring.h{transform:translate(-50%,-50%) scale(.3);opacity:0}
 
 /* ── Top Bar ── */
 .topbar{background:var(--ink);color:rgba(255,255,255,.7);text-align:center;padding:.5rem;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:300}
@@ -241,7 +237,6 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);padding:5rem 0 0}
   .prod-grid{grid-template-columns:repeat(2,1fr)}
   .footer-grid{grid-template-columns:1fr 1fr}
   body{cursor:auto}
-  .cur,.cur-ring{display:none}
 }
 @media(max-width:480px){
   .prod-grid{grid-template-columns:1fr 1fr;gap:.8rem}
@@ -251,7 +246,6 @@ footer{background:var(--ink);color:rgba(255,255,255,.45);padding:5rem 0 0}
 </head>
 <body>
 
-<div class="cur" id="cur"></div>
 <div class="cur-ring" id="curR"></div>
 
 <!-- Top Bar -->
@@ -482,11 +476,6 @@ let mx=0,my=0,fx=0,fy=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.transform=`translate(${mx-3}px,${my-3}px)`});
 (function loop(){fx+=(mx-fx)*.1;fy+=(my-fy)*.1;curR.style.transform=`translate(${fx-16}px,${fy-16}px)`;requestAnimationFrame(loop)})();
 document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>{cur.classList.add('h');curR.classList.add('h')});el.addEventListener('mouseleave',()=>{cur.classList.remove('h');curR.classList.remove('h')})});
-
-// Products Data
-const products=[
-  {id:1,name:'Midi Φόρεμα Linen Blend',brand:'LUMIÈRE',cat:'foremata',sku:'FOR-LIN-001',price:89,oldPrice:null,emoji:'👗',sizes:['XS','S','M','L'],badge:'new2',rating:5},
-  {id:2,name:'Σατέν Μπλούζα Minimal',brand:'LUMIÈRE',cat:'blouzes',sku:'BLZ-SAT-002',price:45,oldPrice:62,emoji:'👚',sizes:['S','M','L','XL'],badge:'sale2',rating:4},
   {id:3,name:'Flared Παντελόνι High Waist',brand:'LUMIÈRE',cat:'pantelonia',sku:'PAN-FLR-003',price:72,oldPrice:null,emoji:'👖',sizes:['XS','S','M'],badge:null,rating:5},
   {id:4,name:'Structured Δερμάτινη Τσάντα',brand:'LUMIÈRE',cat:'aksesuar',sku:'TSA-STR-004',price:145,oldPrice:null,emoji:'👜',sizes:null,badge:'exc',rating:5},
   {id:5,name:'Maxi Floral Φόρεμα',brand:'LUMIÈRE',cat:'foremata',sku:'FOR-FLO-005',price:115,oldPrice:145,emoji:'🌸',sizes:['XS','S','M','L','XL'],badge:'sale2',rating:4},
