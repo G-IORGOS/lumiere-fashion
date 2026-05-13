@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Εξερευνήστε το αποκλειστικό προϊόν μας. Premium ποιότητα, δωρεάν αποστολή, 14 ημέρες επιστροφή."/>
 <title id="pageTitle">Προϊόν — LUMIÈRE</title>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,300;0,6..96,400;1,6..96,300;1,6..96,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
 <style>
@@ -10,24 +11,27 @@
 :root{
   --cream:#faf8f4;--white:#fff;--ink:#111110;--ink2:#2a2a28;
   --muted:#999890;--border:#e8e4da;--rose:#c4856a;--rose-lt:#d4a090;
-  --green:#4caf82;--serif:'Bodoni Moda',serif;--sans:'Jost',sans-serif;
+  --green:#4caf82;--gold:#d4af37;--serif:'Bodoni Moda',serif;--sans:'Jost',sans-serif;
   --ease:cubic-bezier(.16,1,.3,1);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,.08);
+  --shadow-md: 0 8px 24px rgba(0,0,0,.12);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,.15);
 }
-body{font-family:var(--sans);background:var(--cream);color:var(--ink);cursor:none}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);cursor:auto;line-height:1.6;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 
 /* Nav */
-header{background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+header{background:var(--cream);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(10px)}
 .nav-wrap{max-width:1400px;margin:0 auto;padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;height:70px}
-.logo{font-family:var(--serif);font-size:1.8rem;font-style:italic;color:var(--ink);text-decoration:none}
+.logo{font-family:var(--serif);font-size:1.8rem;font-style:italic;color:var(--ink);text-decoration:none;transition:color .2s}
+.logo:hover{color:var(--rose)}
 .nav-right{display:flex;align-items:center;gap:1.2rem}
-.nav-icon{background:none;border:none;cursor:none;color:var(--muted);transition:color .2s;display:flex;align-items:center;position:relative;padding:.3rem}
+.nav-icon{background:none;border:none;cursor:pointer;color:var(--muted);transition:color .2s;display:flex;align-items:center;position:relative;padding:.3rem;border-radius:4px}
 .nav-icon:hover{color:var(--rose)}
-.cart-dot{position:absolute;top:2px;right:2px;width:18px;height:18px;background:var(--rose);border-radius:50%;font-size:.55rem;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:500}
-.breadcrumb{max-width:1400px;margin:1.5rem auto;padding:0 2.5rem;font-size:.72rem;color:var(--muted);display:flex;gap:.5rem;align-items:center}
+.cart-dot{position:absolute;top:2px;right:2px;width:8px;height:8px;background:var(--rose);border-radius:50%;font-size:.55rem;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600}
+
+.breadcrumb{max-width:1400px;margin:1.5rem auto;padding:0 2.5rem;font-size:.7rem;color:var(--muted);display:flex;gap:.5rem;align-items:center}
 .breadcrumb a{color:var(--muted);text-decoration:none;transition:color .2s}
 .breadcrumb a:hover{color:var(--rose)}
-
-/* Cursor */
 
 /* Product Layout */
 .product-page{max-width:1400px;margin:0 auto;padding:0 2.5rem 6rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
@@ -35,95 +39,99 @@ header{background:var(--cream);border-bottom:1px solid var(--border);position:st
 
 /* Gallery */
 .gallery{position:sticky;top:90px}
-.gallery-main{aspect-ratio:3/4;background:var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;margin-bottom:1rem}
-.gallery-main img{width:100%;height:100%;object-fit:cover}
-.gallery-main .g-emoji{font-size:9rem;opacity:.7}
-.gallery-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem}
-.g-thumb{aspect-ratio:3/4;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:2rem;cursor:none;border:1px solid transparent;transition:border-color .2s;overflow:hidden}
+.gallery-main{aspect-ratio:3/4;background:var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;margin-bottom:1.5rem;border-radius:8px;box-shadow:var(--shadow-md)}
+.gallery-main img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.gallery-main:hover img{transform:scale(1.05)}
+.gallery-main .g-emoji{font-size:9rem;opacity:.7;filter:drop-shadow(0 4px 8px rgba(0,0,0,.1))}
+.gallery-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem}
+.g-thumb{aspect-ratio:3/4;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:2rem;cursor:pointer;border:2px solid transparent;transition:all .2s;overflow:hidden;border-radius:6px;box-shadow:var(--shadow-sm)}
 .g-thumb img{width:100%;height:100%;object-fit:cover}
-.g-thumb.active{border-color:var(--ink)}
-.g-thumb:hover{border-color:var(--muted)}
+.g-thumb.active{border-color:var(--ink);box-shadow:var(--shadow-md)}
+.g-thumb:hover{border-color:var(--rose);transform:scale(1.02)}
 
 /* Product Info */
 .product-info{padding-top:1rem}
-.p-brand{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem}
-.p-name{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300;font-style:italic;line-height:1.15;margin-bottom:.5rem}
-.p-sku{font-size:.65rem;letter-spacing:.12em;color:var(--muted);margin-bottom:1rem}
-.p-rating{display:flex;align-items:center;gap:.5rem;margin-bottom:1.2rem}
-.star{color:var(--muted);font-size:.8rem}
+.p-brand{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rose);margin-bottom:.4rem;font-weight:600}
+.p-name{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300;font-style:italic;line-height:1.15;margin-bottom:.6rem;color:var(--ink)}
+.p-sku{font-size:.65rem;letter-spacing:.12em;color:var(--muted);margin-bottom:1.2rem}
+.p-rating{display:flex;align-items:center;gap:.6rem;margin-bottom:1.4rem}
+.star{color:var(--muted);font-size:.85rem}
 .star.on{color:var(--rose)}
-.p-rating span{font-size:.72rem;color:var(--muted)}
-.p-price{margin-bottom:1.5rem}
-.p-price-main{font-family:var(--serif);font-size:2rem;font-style:italic;color:var(--ink)}
+.p-rating span{font-size:.7rem;color:var(--muted)}
+.p-price{margin-bottom:1.8rem;padding:1.2rem;background:rgba(212,133,106,.05);border-radius:6px;border-left:3px solid var(--rose)}
+.p-price-main{font-family:var(--serif);font-size:2.2rem;font-style:italic;color:var(--ink);font-weight:600}
 .p-price-main.sale{color:var(--rose)}
-.p-price-old{font-size:1.1rem;color:var(--muted);text-decoration:line-through;margin-left:.5rem}
-.p-price-save{font-size:.72rem;background:var(--rose);color:#fff;padding:.15rem .5rem;margin-left:.5rem}
+.p-price-old{font-size:1.2rem;color:var(--muted);text-decoration:line-through;margin-left:.6rem}
+.p-price-save{font-size:.7rem;background:var(--rose);color:#fff;padding:.2rem .6rem;margin-left:.6rem;border-radius:3px;font-weight:600}
 
 /* Options */
-.p-section{margin-bottom:1.5rem}
-.p-section-label{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;display:flex;justify-content:space-between}
-.p-section-label a{color:var(--rose);cursor:none;text-decoration:none}
-.p-section-label a:hover{text-decoration:underline}
-.color-opts{display:flex;gap:.5rem;flex-wrap:wrap}
-.color-opt{padding:.4rem .9rem;border:1px solid var(--border);font-size:.75rem;cursor:none;transition:all .2s;background:none}
-.color-opt:hover,.color-opt.sel{border-color:var(--ink);background:var(--ink);color:#fff}
-.size-opts{display:flex;gap:.5rem;flex-wrap:wrap}
-.size-opt{width:46px;height:46px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.78rem;cursor:none;transition:all .2s;background:none}
-.size-opt:hover,.size-opt.sel{border-color:var(--ink);background:var(--ink);color:#fff}
+.p-section{margin-bottom:1.8rem}
+.p-section-label{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem;display:flex;justify-content:space-between;font-weight:600}
+.p-section-label a{color:var(--rose);cursor:pointer;text-decoration:none;transition:color .2s}
+.p-section-label a:hover{color:var(--ink);text-decoration:underline}
+.color-opts{display:flex;gap:.6rem;flex-wrap:wrap}
+.color-opt{padding:.5rem 1.2rem;border:1.5px solid var(--border);font-size:.75rem;cursor:pointer;transition:all .2s;background:var(--white);border-radius:4px;font-weight:500}
+.color-opt:hover,.color-opt.sel{border-color:var(--ink);background:var(--ink);color:#fff;box-shadow:var(--shadow-sm)}
+.size-opts{display:flex;gap:.6rem;flex-wrap:wrap}
+.size-opt{width:50px;height:50px;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.78rem;cursor:pointer;transition:all .2s;background:var(--white);border-radius:4px;font-weight:600}
+.size-opt:hover,.size-opt.sel{border-color:var(--ink);background:var(--ink);color:#fff;box-shadow:var(--shadow-sm)}
 .size-opt.out{text-decoration:line-through;opacity:.35;cursor:not-allowed}
 
 /* Add to cart */
-.add-row{display:flex;gap:.8rem;margin-bottom:1rem}
-.qty-wrap{display:flex;align-items:center;border:1px solid var(--border)}
-.qty-btn{width:40px;height:52px;border:none;background:none;font-size:1.1rem;cursor:none;transition:background .2s}
+.add-row{display:flex;gap:1rem;margin-bottom:1.2rem}
+.qty-wrap{display:flex;align-items:center;border:1.5px solid var(--border);border-radius:4px;overflow:hidden}
+.qty-btn{width:44px;height:52px;border:none;background:var(--white);font-size:1.2rem;cursor:pointer;transition:all .2s;font-weight:600}
 .qty-btn:hover{background:var(--ink);color:#fff}
-.qty-num{width:44px;text-align:center;font-size:.88rem}
-.add-btn{flex:1;background:var(--ink);color:#fff;border:none;height:52px;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;cursor:none;font-family:var(--sans);transition:background .2s}
-.add-btn:hover{background:var(--rose)}
-.wish-btn{width:52px;height:52px;border:1px solid var(--border);background:none;font-size:1.1rem;cursor:none;transition:all .2s;display:flex;align-items:center;justify-content:center}
-.wish-btn:hover,.wish-btn.on{background:var(--rose);color:#fff;border-color:var(--rose)}
+.qty-num{width:48px;text-align:center;font-size:.85rem;font-weight:600}
+.add-btn{flex:1;background:var(--ink);color:#fff;border:none;height:52px;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;font-family:var(--sans);transition:all .3s;border-radius:4px;font-weight:600;box-shadow:var(--shadow-md)}
+.add-btn:hover{background:var(--rose);transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.wish-btn{width:52px;height:52px;border:1.5px solid var(--border);background:var(--white);font-size:1.2rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;border-radius:4px;font-weight:600}
+.wish-btn:hover,.wish-btn.on{background:var(--rose);color:#fff;border-color:var(--rose);transform:scale(1.1);box-shadow:var(--shadow-md)}
 
 /* Trust strip */
-.trust-strip{border:1px solid var(--border);display:grid;grid-template-columns:repeat(3,1fr)}
-.ts-item{padding:.8rem;text-align:center;border-right:1px solid var(--border);font-size:.68rem;color:var(--muted);line-height:1.5}
+.trust-strip{border:1px solid var(--border);display:grid;grid-template-columns:repeat(3,1fr);background:var(--white);border-radius:6px;overflow:hidden;box-shadow:var(--shadow-sm)}
+.ts-item{padding:1rem;text-align:center;border-right:1px solid var(--border);font-size:.7rem;color:var(--muted);line-height:1.6}
 .ts-item:last-child{border-right:none}
-.ts-item strong{display:block;font-size:.75rem;color:var(--ink2);margin-bottom:.1rem}
+.ts-item strong{display:block;font-size:.8rem;color:var(--ink2);margin-bottom:.2rem;font-weight:600}
 
 /* Accordion */
-.accordion{border-top:1px solid var(--border);margin-top:1.5rem}
+.accordion{border-top:1px solid var(--border);margin-top:2rem}
 .acc-item{border-bottom:1px solid var(--border)}
-.acc-head{display:flex;justify-content:space-between;align-items:center;padding:1rem 0;cursor:none;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase}
+.acc-head{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 0;cursor:pointer;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;transition:color .2s}
 .acc-head:hover{color:var(--rose)}
-.acc-icon{transition:transform .3s;font-size:.8rem}
+.acc-icon{transition:transform .3s;font-size:.9rem}
 .acc-head.open .acc-icon{transform:rotate(45deg)}
-.acc-body{overflow:hidden;max-height:0;transition:max-height .4s var(--ease)}
-.acc-body.on{max-height:400px}
-.acc-body-inner{padding:.5rem 0 1.2rem;font-size:.85rem;color:var(--muted);line-height:1.8}
-.acc-body-inner ul{padding-left:1.2rem}
+.acc-body{overflow:hidden;max-height:0;transition:max-height .4s cubic-bezier(.16,1,.3,1)}
+.acc-body.on{max-height:500px}
+.acc-body-inner{padding:.8rem 0 1.4rem;font-size:.85rem;color:var(--muted);line-height:1.8}
+.acc-body-inner ul{padding-left:1.4rem}
 
 /* Related */
 .related{max-width:1400px;margin:0 auto;padding:0 2.5rem 5rem}
-.related h2{font-family:var(--serif);font-size:1.8rem;font-style:italic;margin-bottom:2rem}
-.related-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.related h2{font-family:var(--serif);font-size:2rem;font-style:italic;margin-bottom:2.5rem;font-weight:300}
+.related-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
 @media(max-width:768px){.related-grid{grid-template-columns:repeat(2,1fr)}}
 
 /* Toast */
-.toast2{position:fixed;bottom:2rem;right:2rem;background:var(--ink);color:#fff;padding:.9rem 1.5rem;font-size:.78rem;z-index:400;transform:translateY(120%);transition:transform .4s var(--ease);display:flex;align-items:center;gap:.6rem;max-width:280px}
+.toast2{position:fixed;bottom:2rem;right:2rem;background:var(--ink);color:#fff;padding:1rem 1.6rem;font-size:.75rem;z-index:400;transform:translateY(140%);transition:transform .4s cubic-bezier(.16,1,.3,1);display:flex;align-items:center;gap:.6rem;border-radius:6px;box-shadow:var(--shadow-lg)}
 .toast2.on{transform:none}
-.toast2-dot{width:6px;height:6px;background:var(--rose);border-radius:50%;flex-shrink:0}
+.toast2-dot{width:7px;height:7px;background:var(--gold);border-radius:50%;flex-shrink:0}
 
 /* Responsive */
+@media(max-width:768px){
+  .product-page{padding:0 1.5rem 4rem}
+  .gallery{position:static}
+}
 </style>
 </head>
 <body>
-
 
 <header>
   <div class="nav-wrap">
     <a href="index.html" class="logo">Lumière</a>
     <div class="nav-right">
-      <button class="nav-icon" id="cartBtn">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <button class="nav-icon" id="cartBtn" title="Καλάθι">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10v7a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-7"/></svg>
         <span class="cart-dot" id="cartDot">0</span>
       </button>
     </div>
@@ -160,7 +168,7 @@ header{background:var(--cream);border-bottom:1px solid var(--border);position:st
     <div class="p-section" id="sizeSection">
       <div class="p-section-label">
         <span>Μέγεθος</span>
-        <a href="#" onclick="event.preventDefault();document.getElementById('accSize').click()">Οδηγός μεγεθών</a>
+        <a id="accSize">Οδηγός μεγεθών</a>
       </div>
       <div class="size-opts" id="sizeOpts"></div>
     </div>
@@ -175,11 +183,6 @@ header{background:var(--cream);border-bottom:1px solid var(--border);position:st
       <button class="add-btn" onclick="addToCart()">Προσθήκη στο Καλάθι</button>
       <button class="wish-btn" id="wishBtn" onclick="toggleWish()" title="Αγαπημένα">♡</button>
     </div>
-
-    <!-- Checkout CTA -->
-    <a href="checkout.html" style="display:block;background:var(--rose);color:#fff;text-align:center;padding:1rem;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;margin-bottom:1.5rem;transition:background .2s" onmouseover="this.style.background='var(--ink)'" onmouseout="this.style.background='var(--rose)'">
-      → Αγορά Τώρα
-    </a>
 
     <!-- Trust -->
     <div class="trust-strip">
@@ -199,19 +202,19 @@ header{background:var(--cream);border-bottom:1px solid var(--border);position:st
         </div>
       </div>
       <div class="acc-item">
-        <div class="acc-head" id="accSize" onclick="toggleAcc('sizeBody',this)">
+        <div class="acc-head" onclick="toggleAcc('sizeBody',this)">
           Οδηγός Μεγεθών <span class="acc-icon">+</span>
         </div>
         <div class="acc-body" id="sizeBody">
           <div class="acc-body-inner">
             <table style="width:100%;border-collapse:collapse;font-size:.8rem">
-              <thead><tr style="background:var(--ink);color:#fff"><th style="padding:.4rem .6rem;text-align:left">Μέγεθος</th><th style="padding:.4rem .6rem">Στήθος</th><th style="padding:.4rem .6rem">Μέση</th><th style="padding:.4rem .6rem">Γοφοί</th></tr></thead>
+              <thead><tr style="background:var(--ink);color:#fff"><th style="padding:.5rem .6rem;text-align:left">Μέγεθος</th><th style="padding:.5rem .6rem">Στήθος</th><th style="padding:.5rem .6rem">Μέση</th><th style="padding:.5rem .6rem">Ισχύ</th></tr></thead>
               <tbody>
-                <tr><td style="padding:.4rem .6rem">XS</td><td style="padding:.4rem .6rem;text-align:center">80-82</td><td style="padding:.4rem .6rem;text-align:center">60-62</td><td style="padding:.4rem .6rem;text-align:center">86-88</td></tr>
-                <tr style="background:rgba(0,0,0,.03)"><td style="padding:.4rem .6rem">S</td><td style="padding:.4rem .6rem;text-align:center">84-86</td><td style="padding:.4rem .6rem;text-align:center">64-66</td><td style="padding:.4rem .6rem;text-align:center">90-92</td></tr>
-                <tr><td style="padding:.4rem .6rem">M</td><td style="padding:.4rem .6rem;text-align:center">88-90</td><td style="padding:.4rem .6rem;text-align:center">68-70</td><td style="padding:.4rem .6rem;text-align:center">94-96</td></tr>
-                <tr style="background:rgba(0,0,0,.03)"><td style="padding:.4rem .6rem">L</td><td style="padding:.4rem .6rem;text-align:center">92-96</td><td style="padding:.4rem .6rem;text-align:center">72-76</td><td style="padding:.4rem .6rem;text-align:center">98-102</td></tr>
-                <tr><td style="padding:.4rem .6rem">XL</td><td style="padding:.4rem .6rem;text-align:center">100-104</td><td style="padding:.4rem .6rem;text-align:center">80-84</td><td style="padding:.4rem .6rem;text-align:center">106-110</td></tr>
+                <tr><td style="padding:.5rem .6rem">XS</td><td style="padding:.5rem .6rem;text-align:center">80-82</td><td style="padding:.5rem .6rem;text-align:center">60-62</td><td style="padding:.5rem .6rem;text-align:center">88-90</td></tr>
+                <tr style="background:rgba(0,0,0,.03)"><td style="padding:.5rem .6rem">S</td><td style="padding:.5rem .6rem;text-align:center">84-86</td><td style="padding:.5rem .6rem;text-align:center">64-66</td><td style="padding:.5rem .6rem;text-align:center">92-94</td></tr>
+                <tr><td style="padding:.5rem .6rem">M</td><td style="padding:.5rem .6rem;text-align:center">88-90</td><td style="padding:.5rem .6rem;text-align:center">68-70</td><td style="padding:.5rem .6rem;text-align:center">96-98</td></tr>
+                <tr style="background:rgba(0,0,0,.03)"><td style="padding:.5rem .6rem">L</td><td style="padding:.5rem .6rem;text-align:center">92-96</td><td style="padding:.5rem .6rem;text-align:center">74-76</td><td style="padding:.5rem .6rem;text-align:center">102-104</td></tr>
+                <tr><td style="padding:.5rem .6rem">XL</td><td style="padding:.5rem .6rem;text-align:center">100-104</td><td style="padding:.5rem .6rem;text-align:center">80-84</td><td style="padding:.5rem .6rem;text-align:center">108-110</td></tr>
               </tbody>
             </table>
           </div>
@@ -249,18 +252,8 @@ header{background:var(--cream);border-bottom:1px solid var(--border);position:st
 <script src="js/config.js"></script>
 <script src="js/store.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script src="js/config.js"></script>
-<script src="js/store.js"></script>
 <script src="js/agent.js"></script>
 <script>
-// ── Cursor ────────────────────────────────────────────────────
-let mx=0,my=0,fx=0,fy=0;
-if(cur){
-  document.querySelectorAll('a,button').forEach(el=>{
-  });
-}
-
-// ── Load Product ──────────────────────────────────────────────
 const params = new URLSearchParams(location.search);
 const productId = parseInt(params.get('id')) || 1;
 const product = Store.getProduct(productId);
@@ -269,7 +262,7 @@ let selectedColor = null;
 let qty = 1;
 
 if(!product) {
-  document.getElementById('productPage').innerHTML = `<div style="text-align:center;padding:4rem;grid-column:1/-1"><h2 style="font-family:var(--serif);font-style:italic">Το προϊόν δεν βρέθηκε</h2><br><a href="index.html" style="color:var(--rose)">← Πίσω στο κατάστημα</a></div>`;
+  document.getElementById('productPage').innerHTML = `<div style="text-align:center;padding:6rem 2rem;grid-column:1/-1"><h2 style="font-family:var(--serif);font-style:italic;font-size:2rem;color:var(--muted)">Το προϊόν δεν βρέθηκε</h2><a href="index.html" style="color:var(--rose);margin-top:1.5rem;display:inline-block">← Επιστροφή στα προϊόντα</a></div>`;
 } else {
   renderProduct(product);
   renderRelated(product);
@@ -280,29 +273,25 @@ function renderProduct(p) {
   document.getElementById('pageTitle').textContent = p.name + ' — LUMIÈRE';
   document.getElementById('pBrand').textContent = p.brand;
   document.getElementById('pName').textContent = p.name;
-  document.getElementById('pSku').textContent = 'Κωδικός: ' + p.sku;
+  document.getElementById('pSku').textContent = 'SKU: ' + p.sku;
   document.getElementById('bcName').textContent = p.name;
   document.getElementById('bcCategory').textContent = {foremata:'Φορέματα',blouzes:'Μπλούζες',pantelonia:'Παντελόνια',aksesuar:'Αξεσουάρ'}[p.category]||p.category;
 
-  // Rating
   document.getElementById('pRating').innerHTML =
     [...Array(5)].map((_,i)=>`<span class="star ${i<p.rating?'on':''}">★</span>`).join('') +
     `<span>(${p.reviews||0} αξιολογήσεις)</span>`;
 
-  // Price
   const fmt = n => n.toFixed(2).replace('.',',')+'€';
   const savePct = p.oldPrice ? Math.round((1-p.price/p.oldPrice)*100) : 0;
   document.getElementById('pPrice').innerHTML = `
     <span class="p-price-main ${p.oldPrice?'sale':''}">${fmt(p.price)}</span>
     ${p.oldPrice?`<span class="p-price-old">${fmt(p.oldPrice)}</span><span class="p-price-save">-${savePct}%</span>`:''}`;
 
-  // Gallery
   const mainEl = document.getElementById('galleryMain');
   mainEl.innerHTML = `<div class="g-emoji">${p.emoji}</div>`;
   document.getElementById('galleryThumbs').innerHTML =
-    [...Array(4)].map((_,i)=>`<div class="g-thumb ${i===0?'active':''}">${p.emoji}</div>`).join('');
+    [...Array(4)].map((_,i)=>`<div class="g-thumb ${i===0?'active':''}" onclick="selectThumb(this)">${p.emoji}</div>`).join('');
 
-  // Colors
   if(p.colors && p.colors.length) {
     selectedColor = p.colors[0];
     document.getElementById('selectedColor').textContent = selectedColor;
@@ -312,7 +301,6 @@ function renderProduct(p) {
     document.getElementById('colorSection').style.display='none';
   }
 
-  // Sizes
   if(p.sizes && p.sizes.length) {
     selectedSize = p.sizes[0];
     document.getElementById('sizeOpts').innerHTML = p.sizes.map((s,i)=>`
@@ -321,15 +309,17 @@ function renderProduct(p) {
     document.getElementById('sizeSection').style.display='none';
   }
 
-  // Description
   document.getElementById('pDesc').innerHTML = p.description||'';
 
-  // Wishlist
   if(Store.isWishlisted(p.id)) document.getElementById('wishBtn').classList.add('on');
 
-  // Update cart count
   const cart = JSON.parse(localStorage.getItem('lum_cart')||'[]');
   document.getElementById('cartDot').textContent = cart.reduce((s,i)=>s+i.qty,0);
+}
+
+function selectThumb(el) {
+  document.querySelectorAll('.g-thumb').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
 }
 
 function selectColor(c, btn) {
@@ -359,13 +349,13 @@ function addToCart() {
   else cart.push({ ...product, key, qty, size:selectedSize||'-', color:selectedColor||'' });
   localStorage.setItem('lum_cart', JSON.stringify(cart));
   document.getElementById('cartDot').textContent = cart.reduce((s,i)=>s+i.qty,0);
-  showToast(`${product.emoji} ${product.name.split(' ').slice(0,3).join(' ')} προστέθηκε!`);
+  showToast(`✨ ${product.emoji} Προστέθηκε!`);
 }
 
 function toggleWish() {
   const added = Store.toggleWishlist(product.id);
   document.getElementById('wishBtn').classList.toggle('on', added);
-  showToast(added ? '❤️ Αποθηκεύτηκε στα αγαπημένα' : '💔 Αφαιρέθηκε');
+  showToast(added ? '❤️ Αποθηκεύτηκε' : '💔 Αφαιρέθηκε');
 }
 
 function toggleAcc(bodyId, head) {
@@ -382,10 +372,10 @@ function renderRelated(p) {
   const fmt = n => n.toFixed(2).replace('.',',')+'€';
   document.getElementById('relatedGrid').innerHTML = related.map(r=>`
     <a href="product.html?id=${r.id}" style="text-decoration:none;color:var(--ink)">
-      <div style="aspect-ratio:3/4;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:4rem;margin-bottom:.8rem;overflow:hidden;transition:transform .4s" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform=''">${r.emoji}</div>
-      <div style="font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.2rem">${r.brand}</div>
-      <div style="font-family:var(--serif);font-style:italic;font-size:.95rem;margin-bottom:.3rem">${r.name}</div>
-      <div style="font-size:.9rem;color:${r.oldPrice?'var(--rose)':'var(--ink)'}">${fmt(r.price)}</div>
+      <div style="aspect-ratio:3/4;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:4rem;margin-bottom:1rem;overflow:hidden;transition:transform .4s;border-radius:6px;box-shadow:var(--shadow-sm)" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">${r.emoji}</div>
+      <div style="font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem;font-weight:500">${r.brand}</div>
+      <div style="font-family:var(--serif);font-style:italic;font-size:1rem;margin-bottom:.4rem">${r.name}</div>
+      <div style="font-size:.95rem;color:${r.oldPrice?'var(--rose)':'var(--ink)'};font-weight:600">${fmt(r.price)}</div>
     </a>`).join('');
 }
 
